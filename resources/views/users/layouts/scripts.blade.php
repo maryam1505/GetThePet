@@ -14,8 +14,8 @@
 <script src="{{ asset('users/template/js/main.js') }}"></script>
 
 <!-- TOASTERS -->
-<link href="{{asset('toasters/toastr.min.css')}}" rel="stylesheet" type="text/css" />   
-<script src="{{asset('toasters/toastr.min.js')}}" type="text/javascript"></script>
+<link href="{{ asset('toasters/toastr.min.css') }}" rel="stylesheet" type="text/css" />
+<script src="{{ asset('toasters/toastr.min.js') }}" type="text/javascript"></script>
 <script>
     toastr.options = {
         "closeButton": true,
@@ -32,20 +32,37 @@
         "hideMethod": "fadeOut"
     }
     //Command: toastr['success']("hello");
-
-    '<?php if(Session::has('success')){ ?> Command: toastr['success']("<?php echo Session('success'); ?>"); <?php } ?>''
-    <?php if(Session::has('error')){ ?> Command: toastr['error']("<?php echo Session('error'); ?>"); <?php } ?>'
-    '<?php if(Session::has('warning')){ ?> Command: toastr['warning']("<?php echo Session('warning'); ?>"); <?php } ?>'
-    '<?php if(Session::has('info')){ ?> Command: toastr['info']("<?php echo Session('info'); ?>"); <?php } ?>'
 </script>
-<!-- TOASTERS -->             
+    @if (Session::has('success'))
+        <script>
+            toastr['success']('{{ Session('success') }}');
+        </script>
+    @endif
+
+    @if (Session::has('error'))
+        <script>
+            toastr['error']('{{ Session('error') }}');
+        </script>
+    @endif
+
+    @if (Session::has('warning'))
+        <script>
+            toastr['warning']('{{ Session('warning') }}');
+        </script>
+    @endif
+
+    @if (Session::has('info'))
+        <script>
+            toastr['info']('{{ Session('info') }}');
+        </script>
+    @endif
+<!-- TOASTERS -->
 
 <!-- Custom JS -->
 <script>
     /*-------------------
 		Navbar Animation
 	--------------------- */
-
     $(document).ready(function() {
         $(".nav-item").on('mouseenter', function() {
             $(this).find(".nav-link").css("color", "#90a955");
@@ -78,14 +95,15 @@
                 var newVal = parseFloat(oldValue) - 1;
             } else {
                 newVal = 0;
-            }9
+            }
+            9
         }
         $button.parent().find('input').val(newVal);
     });
 
-	/*-------------------
-		Redirect to Login
-	--------------------- */
+    /*-------------------
+    	Redirect to Login
+    --------------------- */
     function BacktoShop() {
         toastr.success("Redirecting to the Home page");
 
@@ -94,23 +112,21 @@
         }, 2000);
     }
 
-	/*-------------------
-		Redirect to Login
-	--------------------- */
+    /*-------------------
+    	Redirect to Login
+    --------------------- */
     function RedirectToLogin(destination) {
-        let userId = "{{ Session::get('user_name') }}";
-        if(userId) {
-            var destination = $(this).data('destination').val();
-            if(destination == 'cart') {
-                window.location.href="/cart";     
+        let userId = "{{ Session::get('users_data')['user_id'] }}";
+        if (userId) {
+            if (destination === 'cart') {
+                window.location.href = {{url('/cart')}};
             }
         } else {
             toastr.info("You need to login first.");
 
             setTimeout(function() {
-                window.location.href = "/login";
+                window.location.href = {{url('/login')}};
             }, 2000);
         }
     }
-	
 </script>

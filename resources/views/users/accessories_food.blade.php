@@ -94,7 +94,7 @@
                         <h6 class="text-uppercase">Quality Pet Foods</h6>
                         <h5 class="text-primary mb-0">$199.00</h5>
                         <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                             <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                         <h6 class="text-uppercase">Quality Pet Foods</h6>
                         <h5 class="text-primary mb-0">$199.00</h5>
                         <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                             <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         <h6 class="text-uppercase">Quality Pet Foods</h6>
                         <h5 class="text-primary mb-0">$199.00</h5>
                         <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                             <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                         <h6 class="text-uppercase">Quality Pet Foods</h6>
                         <h5 class="text-primary mb-0">$199.00</h5>
                         <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                             <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                         <h6 class="text-uppercase">Quality Pet Foods</h6>
                         <h5 class="text-primary mb-0">$199.00</h5>
                         <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                             <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                         <h6 class="text-uppercase">Quality Pet Foods</h6>
                         <h5 class="text-primary mb-0">$199.00</h5>
                         <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                             <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                                     <h6 class="text-uppercase">Quality Pet Foods</h6>
                                     <h5 class="text-primary mb-0">$199.00</h5>
                                     <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                                         <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                     <h6 class="text-uppercase">Quality Pet Foods</h6>
                                     <h5 class="text-primary mb-0">$199.00</h5>
                                     <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                                         <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                                     </div>
                                 </div>
@@ -201,7 +201,7 @@
                                     <h6 class="text-uppercase">Quality Pet Foods</h6>
                                     <h5 class="text-primary mb-0">$199.00</h5>
                                     <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                                         <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                                     </div>
                                 </div>
@@ -214,7 +214,7 @@
                                     <h6 class="text-uppercase">Quality Pet Foods</h6>
                                     <h5 class="text-primary mb-0">$199.00</h5>
                                     <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin();" data-destination="cart"><i class="bi bi-cart"></i></a>
+                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
                                         <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
                                     </div>
                                 </div>

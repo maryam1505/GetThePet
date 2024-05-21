@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  {{-- <link rel="shortcut icon" href="{{asset('users/images/favicon.png')}}" type="image/x-icon"> --}}
   <!-- Site Metas -->
   <meta name="keywords" content="" />
   <meta name="description" content="" />
