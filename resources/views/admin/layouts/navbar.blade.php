@@ -76,12 +76,16 @@
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img class="rounded-circle me-lg-2" src="{{asset('admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                <span class="d-none d-lg-inline-flex">{{session()->get('name')}}</span>
+                <span class="d-none d-lg-inline-flex">{{Session::get('admin_data')['name']}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                 <a href="#" class="dropdown-item">My Profile</a>
                 <a href="#" class="dropdown-item">Settings</a>
-                <a href="{{Route('logout')}}" class="dropdown-item">Log Out</a>
+                <form action="{{ Route('logout') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="role" value="Admin">
+                    <button type="submit" class="dropdown-item">Log Out</button>
+                </form>
             </div>
         </div>
     </div>

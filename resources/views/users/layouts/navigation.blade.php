@@ -46,7 +46,7 @@
             </div>
 
         </nav>
-        @if(session()->has('user_id'))
+        @if(session()->has('users_data'))
             <div class="header_icons text-end w-10 d-flex justify-content-evenly align-items-center">
                 <h6>
                     <a href="#"><i class="bi bi-person"></i></a>

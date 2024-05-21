@@ -1,33 +1,36 @@
 @extends('admin.layouts.master')
-
 @section('admindata')
-    <!-- Users Table -->
-    <div class="container-fluid mt-3 px-4">
+     <!-- Users Table -->
+     <div class="container-fluid mt-3 px-4">
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Users Customers</h6>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="">Pet Products</h6>
+                    <button type="button" class="btn btn-primary rounded-pill" onclick="AddProducts();">Add Products</button>
+                </div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Image</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col">Address</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Short Description</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Sub Category</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Price</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
-                            <tr class="align-middle">
-                                <th scope="row">{{$user->users_customers_id}}</th>
+                            @foreach ($products as $product)
+                            {{-- <tr>
+                                <th scope="row">{{$products->users_customers_id}}</th>
                                 <!-- Image -->
-                                <td><img src="{{asset("admin/img/user.jpg")}}" alt="profile" class="flex-shrink-0 rounded-circle" style="width:2vw;height:2vw;"></td>
+                                <td><img src="{{asset($user->image)}}" alt="profile" class="flex-shrink-0 rounded-circle"></td>
 
                                 <!-- First Name -->
                                 <td>{{$user->first_name}}</td>
@@ -52,7 +55,7 @@
 
                                 <!-- Actions -->
                                 <td></td>
-                            </tr> 
+                            </tr>  --}}
                             @endforeach
                         </tbody>
                     </table>

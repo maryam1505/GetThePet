@@ -44,7 +44,7 @@
                                   <div class="info_contact">
                                       <div class="contact_link_box">
                                           <a href="">
-                                              <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                              <i class="fas fa-map-marker" aria-hidden="true"></i>
                                               <span>
                                                   Location
                                               </span>

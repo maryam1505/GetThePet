@@ -45,13 +45,6 @@ class ApiController extends Controller
                 'email'     => 'required|email',
                 'password'  => 'required|min:8|max:12',
             ],
-            [
-                'email.required'    => 'The email field is required.',
-                'email.email'       => 'Please enter a valid email address.',
-                'password.required' => 'The password field is required.',
-                'password.min'      => 'Password must be at least 8 characters long.',
-                'password.max'      => 'Password cannot be more than 12 characters long.',
-            ],
         );
 
         $user = Users::where('email', $request->email)->first();
@@ -61,24 +54,25 @@ class ApiController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return redirect()->route('login')->with('message', 'Password Incorrect');
         }
-        Session::put('user_id', $user->users_customers_id);
+        Session::put('users_data', [
+            'user_id'       => $user->users_customers_id,
+            'username'      => $user->username,
+            'user_image'    => $user->image,
+            'user_email'    => $user->email,
+        ]);
         return redirect()->route('home');
     }
 
     public function logout(Request $request) { 
-        if(session()->has('role')) {
-
-            $request->session()->invalidate();
-    
-            $request->session()->regenerateToken();
-    
+        $role = $request->role;
+        if($role == 'Admin') {
+            Session::forget('admin_data');
             return redirect()->route('admin.login');
+        } else {
+            Session::forget('users_data');
+            return redirect()->route('home');
         }
-        $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
-
-        return redirect()->route('home');
     }
 
 
@@ -117,13 +111,6 @@ class ApiController extends Controller
                 'email'     => 'required|email',
                 'password'  => 'required|min:8|max:12',
             ],
-            [
-                'email.required'    => 'The email field is required.',
-                'email.email'       => 'Please enter a valid email address.',
-                'password.required' => 'The password field is required.',
-                'password.min'      => 'Password must be at least 8 characters long.',
-                'password.max'      => 'Password cannot be more than 12 characters long.',
-            ],
         );
 
         $admin = Admin::where('email', $request->email)->first();
@@ -133,7 +120,12 @@ class ApiController extends Controller
         if (!Hash::check($request->password, $admin->password)) {
             return redirect()->route('admin.login')->with('message', 'Password Incorrect');
         }
-        Session::put(['id'=> $admin->administrations_id, 'role' => $admin->role, 'name' => $admin->name, 'image'=> $admin->image]);
+        Session::put('admin_data',[
+            'id'    => $admin->administrations_id, 
+            'role'  => $admin->role, 
+            'name'  => $admin->name, 
+            'image' => $admin->image
+        ]);
         return redirect()->route('dashboard');
     }
     /*======================= ADMIN Panel =============================*/

@@ -43,7 +43,7 @@ Route::get('/marketplace',[UsersController::class,'marketplace'])->name('marketp
 Route::get('/product_details',[UsersController::class,'product_details'])->name('product.details');
 
 /** Product Details **/ 
-Route::get('/cart',[UsersController::class, 'cart'])->name('cart');
+Route::get('/cart',[UsersController::class,'cart'])->name('cart');
 
 /** Check Out **/ 
 Route::get('/checkout',[UsersController::class, 'CheckOut'])->name('check.out');
@@ -53,7 +53,7 @@ Route::get('/thankyou',[UsersController::class, 'thankyou'])->name('thankyou');
 
 
 
-/*----------------------- API Routes --------------------------------*/
+/*=============================== API Routes ===============================*/
 Route::post('/login',[ApiController::class,'user_login'])->name('user.login');
 Route::post('/register',[ApiController::class,'user_register'])->name('user.register');
 Route::get('/logout',[ApiController::class,'logout'])->name('logout');
@@ -61,11 +61,26 @@ Route::get('/logout',[ApiController::class,'logout'])->name('logout');
 /*--- ADMIN API ROUTES ---*/
 Route::post('/admin/login',[ApiController::class,'Admin_login'])->name('admin.login');
 Route::post('/admin/register',[ApiController::class,'Admin_register'])->name('admin.register');
-/*----------------------- API Routes --------------------------------*/
+/*=============================== API Routes ===============================*/
+
+
 
 /*----------------------- Admin Routes --------------------------------*/
+/** Dashboard **/
 Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
+
+/** Admin Login **/
 Route::get('/admin/login',[AdminController::class,'admin_login'])->name('admin.login');
+
+/** Admin Register **/
 Route::get('/admin/register',[AdminController::class,'admin_register'])->name('admin.register');
+
+/** Users Details */
+Route::get('/admin/users_details',[AdminController::class,'users_details'])->name('users.details');
+
+/** Pet Products */
+Route::get('/admin/pet_products',[AdminController::class,'pet_products'])->name('pet.products');
+
+/** Users Details */
 Route::get('/admin/users_details',[AdminController::class,'users_details'])->name('users.details');
 /*----------------------- Admin Routes --------------------------------*/

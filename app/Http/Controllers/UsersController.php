@@ -41,14 +41,14 @@ class UsersController extends Controller
         return view("users.product_details", ["title"=> "Product Details"]);
     }
     public function cart() {
-        if(Session::has("user_id")) {
+        if(Session::has("users_data")) {
             return view("users.cart", ["title"=> "Shopping Cart"]);
         } else {
             redirect()->route("home")->with('title','Home');
         }
     }
     public function CheckOut() {
-        if(Session::has("user_id")) {
+        if(Session::has("users_data")) {
             return view("users.check_out", ["title"=> "Check Out"]);
         } else {
             redirect()->route("home")->with('title','Home');
