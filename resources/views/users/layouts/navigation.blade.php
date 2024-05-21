@@ -1,0 +1,69 @@
+<!-- header section strats -->
+<header class="header_section">
+    <div class="d-flex justify-content-between align-items-center px-3">
+        <nav class="navbar navbar-expand-lg custom_nav-container w-75">
+            <a class="navbar-brand mr-5" href="{{Route('home')}}">
+                <img src="{{asset('users/images/logo2.png')}}" alt="logo"/>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav d-flex justify-content-evenly w-100">
+                    <li class="nav-item {{ request()->route()->getName() === 'home' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{Route('home')}}"> Home </a>
+                    </li>
+                    <li class="nav-item {{ request()->route()->getName() === 'about' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{Route('about')}}"> About </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->route()->getName() === 'marketplace' ? 'active' : '' }}" href="{{Route('marketplace')}}"> Marketplace </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" href="{{Route('about')}}">  </a>
+                    </li> --}}
+                    <li class="nav-item dropdown {{ request()->route()->getName() === 'pharmacy' || request()->route()->getName() === 'product.details' || request()->route()->getName() === 'accessory.food' ? 'active' : '' }}">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">PetShop</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="{{Route('pharmacy')}}" class="dropdown-item">Pharmacy</a>
+                            <a href="{{Route('accessory.food')}}" class="dropdown-item">Accessory & Food</a>
+                        </div>
+                    </li>
+                    <li class="nav-item {{ request()->route()->getName() === 'pet.history' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{Route('pet.history')}}"> Pet History </a>
+                    </li>
+                    <li class="nav-item {{ request()->route()->getName() === 'discussion.forum' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{Route('discussion.forum')}}"> Discussion forum </a>
+                    </li>
+                    <li class="nav-item {{ request()->route()->getName() === 'contact' ? 'active' : '' }}">
+                        <a class="nav-link pr-lg-0" href="{{Route('contact')}}"> Contact us</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+        @if(session()->has('user_id'))
+            <div class="header_icons text-end w-10 d-flex justify-content-evenly align-items-center">
+                <h6>
+                    <a href="#"><i class="bi bi-person"></i></a>
+                </h6>
+                <h6>
+                    <a href="{{Route('cart')}}"><i class="bi bi-cart"></i></a>
+                </h6>
+                <h6>
+                    <a href="{{Route('logout')}}"><i class="bi bi-box-arrow-right"></i></a>
+                </h6>
+            </div>
+        @else
+        <div class="text-end small auth">
+            <a href="{{Route('login')}}">Login</a> /
+            <a href="{{Route('register')}}">Register</a>
+        </div>
+        @endif
+    </div>
+</header>
+<!-- end header section -->
