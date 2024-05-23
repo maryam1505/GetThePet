@@ -6,12 +6,10 @@
             <div class="row gx-5 justify-content-start">
                 <div class="col-lg-7">
                     <div class="border-start border-5 border-dark ps-5 mb-5">
-                        <h6 class="text-dark text-uppercase">Special Offer</h6>
-                        <h1 class="display-5 text-uppercase text-white mb-0">Save 50% on all items your first order</h1>
+                        <h1 class="display-4 text-uppercase text-white mb-0">Accessories & Food</h1>
                     </div>
-                    <p class="text-white mb-4">Eirmod sed tempor lorem ut dolores sit kasd ipsum. Dolor ea et dolore et at sea ea at dolor justo ipsum duo rebum sea. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo lorem. Elitr ut dolores magna sit. Sea dolore sed et.</p>
-                    <a href="" class="btn btn-light py-md-3 px-md-5 me-3">Shop Now</a>
-                    <a href="" class="btn btn-outline-light py-md-3 px-md-5">Read More</a>
+                    <p class="text-white mb-4">Offers a variety of high-quality pet accessories to keep your furry friends happy and healthy. From cozy beds and stylish collars to fun toys and nutritious treats, we have everything you need for your pets. Shop with us for affordable, reliable, and stylish pet products."</p>
+                    <a href="{{Route('discussion.forum')}}" class="btn btn-outline-light py-md-3 px-md-5 me-3">Any Query Bothering?</a>
                 </div>
             </div>
         </div>
@@ -85,64 +83,22 @@
     <section class="layout_padding-bottom py-5">
         <div class="container">
             <div class="heading_container heading_center pb-5">
-                <h2><hr> New Products <hr></h2>
+                <h2><hr> Accessories & Food <hr></h2>
             </div>
             <div class="owl-carousel product-carousel">
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="{{asset('users/template/img/product-1.png')}}" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">$199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                            <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
+                @foreach ($products as $product)
+                    <div class="pb-5">
+                        <div class="product-item position-relative bg-light d-flex flex-column text-center">
+                            <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
+                            <h6 class="text-uppercase">{{$product->name}}</h6>
+                            <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
+                            <div class="btn-action d-flex justify-content-center">
+                                <a class="btn btn-primary py-2 px-3 redirect-to-cart text-white cursor-pointer" onclick="RedirectToLogin('cart');"><i class="bi bi-cart"></i></a>
+                                <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="{{asset('users/template/img/product-2.png')}}" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">$199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                            <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="{{asset('users/template/img/product-3.png')}}" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">$199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                            <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="{{asset('users/template/img/product-4.png')}}" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">$199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                            <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="{{asset('users/template/img/product-2.png')}}" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">$199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                            <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
+                    </div>  
+                @endforeach
             </div>
         </div>
     </section>
@@ -152,76 +108,51 @@
     <section class="layout_padding-bottom py-5">
         <div class="container">
             <div class="heading_container heading_center pb-5">
-                <h2><hr> Featured Products <hr></h2>
+                <h2><hr> Pet Accessories <hr></h2>
             </div>
             <div class="row">
-                <div class="col-lg-6 pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="{{asset('users/template/img/product-1.png')}}" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">$199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                            <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="pb-5">
-                                <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                                    <img class="img-fluid mb-4" src="{{asset('users/template/img/product-2.png')}}" alt="">
-                                    <h6 class="text-uppercase">Quality Pet Foods</h6>
-                                    <h5 class="text-primary mb-0">$199.00</h5>
-                                    <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                                        <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                                    </div>
+                @foreach ($products as $product)
+                    @if($product->category == 'Accessories')
+                        <div class="pb-5 col-3">
+                            <div class="product-item position-relative bg-light d-flex flex-column text-center">
+                                <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
+                                <h6 class="text-uppercase">{{$product->name}}</h6>
+                                <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
+                                <div class="btn-action d-flex justify-content-center">
+                                    <a class="btn btn-primary py-2 px-3 redirect-to-cart text-white cursor-pointer" onclick="RedirectToLogin('cart');"><i class="bi bi-cart"></i></a>
+                                    <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="pb-5">
-                                <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                                    <img class="img-fluid mb-4" src="{{asset('users/template/img/product-3.png')}}" alt="">
-                                    <h6 class="text-uppercase">Quality Pet Foods</h6>
-                                    <h5 class="text-primary mb-0">$199.00</h5>
-                                    <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                                        <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                                    </div>
+                        </div>  
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!-- Featured end -->
+
+    <!-- Featured -->
+    <section class="layout_padding-bottom py-5">
+        <div class="container">
+            <div class="heading_container heading_center pb-5">
+                <h2><hr> Pet Food <hr></h2>
+            </div>
+            <div class="row">
+                @foreach ($products as $product)
+                    @if($product->category == 'Food')
+                        <div class="pb-5 col-3">
+                            <div class="product-item position-relative bg-light d-flex flex-column text-center">
+                                <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
+                                <h6 class="text-uppercase">{{$product->name}}</h6>
+                                <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
+                                <div class="btn-action d-flex justify-content-center">
+                                    <a class="btn btn-primary py-2 px-3 redirect-to-cart text-white cursor-pointer" onclick="RedirectToLogin('cart');"><i class="bi bi-cart"></i></a>
+                                    <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="pb-5">
-                                <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                                    <img class="img-fluid mb-4" src="{{asset('users/template/img/product-4.png')}}" alt="">
-                                    <h6 class="text-uppercase">Quality Pet Foods</h6>
-                                    <h5 class="text-primary mb-0">$199.00</h5>
-                                    <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                                        <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="pb-5">
-                                <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                                    <img class="img-fluid mb-4" src="{{asset('users/template/img/product-2.png')}}" alt="">
-                                    <h6 class="text-uppercase">Quality Pet Foods</h6>
-                                    <h5 class="text-primary mb-0">$199.00</h5>
-                                    <div class="btn-action d-flex justify-content-center">
-                                        <a class="btn btn-primary py-2 px-3" href="" onclick="RedirectToLogin('cart');" data-destination="cart"><i class="bi bi-cart"></i></a>
-                                        <a class="btn btn-primary py-2 px-3" href="{{Route('product.details')}}"><i class="bi bi-eye"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        </div>  
+                    @endif
+                @endforeach
             </div>
         </div>
     </section>

@@ -40,10 +40,11 @@ Route::get('/pet_history',[UsersController::class,'pet_history'])->name('pet.his
 Route::get('/marketplace',[UsersController::class,'marketplace'])->name('marketplace');
 
 /** Product Details **/ 
-Route::get('/product_details',[UsersController::class,'product_details'])->name('product.details');
+Route::get('/product_details/{id}',[UsersController::class,'product_details'])->name('product.details');
 
-/** Product Details **/ 
-Route::get('/cart',[UsersController::class,'cart'])->name('cart');
+/** User Cart **/ 
+Route::get('/cart',[UsersController::class,'show_cart'])->name('cart');
+Route::post('/add_cart',[UsersController::class,'add_cart'])->name('add.cart');
 
 /** Check Out **/ 
 Route::get('/checkout',[UsersController::class, 'CheckOut'])->name('check.out');
@@ -51,11 +52,13 @@ Route::get('/checkout',[UsersController::class, 'CheckOut'])->name('check.out');
 /** Thank You **/ 
 Route::get('/thankyou',[UsersController::class, 'thankyou'])->name('thankyou');
 
+Route::delete('/cart/delete/{id}', [UsersController::class, 'delete'])->name('cart.delete');
 
 
 /*=============================== API Routes ===============================*/
 Route::post('/login',[ApiController::class,'user_login'])->name('user.login');
 Route::post('/register',[ApiController::class,'user_register'])->name('user.register');
+Route::post('/logout',[ApiController::class,'logout'])->name('logout');
 Route::get('/logout',[ApiController::class,'logout'])->name('logout');
 
 /*--- ADMIN API ROUTES ---*/
@@ -81,6 +84,15 @@ Route::get('/admin/users_details',[AdminController::class,'users_details'])->nam
 /** Pet Products */
 Route::get('/admin/pet_products',[AdminController::class,'pet_products'])->name('pet.products');
 
+/** Add Products */
+Route::post('/admin/add_products',[AdminController::class,'add_products'])->name('add.products');
+
+/** Add Products */
+Route::post('/admin/edit_products',[AdminController::class,'edit_products'])->name('edit.products');
+
 /** Users Details */
 Route::get('/admin/users_details',[AdminController::class,'users_details'])->name('users.details');
+
+/** Users Details */
+Route::post('/admin/delete',[AdminController::class,'delete_product'])->name('product.delete');
 /*----------------------- Admin Routes --------------------------------*/

@@ -1,12 +1,14 @@
-<script src="{{ asset('users/js/jquery-3.4.1.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('users/js/bootstrap.js') }}"></script>
 <!-- lightbox -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js  "></script>
 <!-- custom js -->
 <script src="{{ asset('users/js/custom.js') }}"></script>
 <!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
 <!-- End Google Map -->
 
 <script src="{{ asset('users/template/lib/owlcarousel/owl.carousel.min.js') }}"></script>
@@ -33,29 +35,30 @@
     }
     //Command: toastr['success']("hello");
 </script>
-    @if (Session::has('success'))
-        <script>
-            toastr['success']('{{ Session('success') }}');
-        </script>
-    @endif
 
-    @if (Session::has('error'))
-        <script>
-            toastr['error']('{{ Session('error') }}');
-        </script>
-    @endif
+@if (Session::has('success'))
+    <script>
+        toastr['success']('{{ Session('success') }}');
+    </script>
+@endif
 
-    @if (Session::has('warning'))
-        <script>
-            toastr['warning']('{{ Session('warning') }}');
-        </script>
-    @endif
+@if (Session::has('error'))
+    <script>
+        toastr['error']('{{ Session('error') }}');
+    </script>
+@endif
 
-    @if (Session::has('info'))
-        <script>
-            toastr['info']('{{ Session('info') }}');
-        </script>
-    @endif
+@if (Session::has('warning'))
+    <script>
+        toastr['warning']('{{ Session('warning') }}');
+    </script>
+@endif
+
+@if (Session::has('info'))
+    <script>
+        toastr['info']('{{ Session('info') }}');
+    </script>
+@endif
 <!-- TOASTERS -->
 
 <!-- Custom JS -->
@@ -102,30 +105,30 @@
     });
 
     /*-------------------
-    	Redirect to Login
+    	Redirect to Shop
     --------------------- */
     function BacktoShop() {
         toastr.success("Redirecting to the Home page");
 
         setTimeout(function() {
-            window.location.href = "/";
+            window.location.href = '/';
         }, 2000);
     }
 
     /*-------------------
     	Redirect to Login
     --------------------- */
-    function RedirectToLogin(destination) {
-        let userId = "{{ Session::get('users_data')['user_id'] }}";
-        if (userId) {
-            if (destination === 'cart') {
-                window.location.href = {{url('/cart')}};
+    function RedirectToLogin(destination, id) {
+        let isLoggedIn = "{{ Session::has('users_data') }}";
+        if (isLoggedIn) {
+            if (destination == 'cart') {
+                window.location.href = "{{ route('cart') }}";
+                
             }
         } else {
-            toastr.info("You need to login first.");
-
+            toastr.info("You need to log in first.");
             setTimeout(function() {
-                window.location.href = {{url('/login')}};
+                window.location.href = "{{ route('login') }}";
             }, 2000);
         }
     }

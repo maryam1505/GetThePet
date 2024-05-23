@@ -17,14 +17,28 @@
     color: #90a955 !important;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
     background-color: #90a955;
     border-color: #90a955 ;
+    outline:none;
 }
 
-.btn-primary:hover {
-    background-color: #87aa36;
-    border-color: #87aa36;
+.btn-outline-primary {
+    color: #90a955;
+    border-color: #90a955;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    border-color: #90a955 !important;
+    background-color: #90a955;
+  }
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 /*** Spinner ***/
@@ -287,4 +301,26 @@
 .testimonial-carousel .owl-dot.active {
     background: var(--dark);
     border-color: var(--primary);
+}
+
+/*----------------------
+PET PRODUCTS
+----------------------*/
+.product-img-cover,
+.img-preview,
+.edit-img-preview {
+    border: 1px solid var(--primary);
+    width: 10vw;
+    height: 10vw;
+}
+
+.img-preview img,
+.edit-img-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.resize-none {
+    resize: none;
 }

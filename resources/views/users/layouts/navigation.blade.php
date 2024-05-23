@@ -48,11 +48,14 @@
         </nav>
         @if(session()->has('users_data'))
             <div class="header_icons text-end w-10 d-flex justify-content-evenly align-items-center">
+                <span class="small">{{Session::get('users_data')['username']}}</span>
                 <h6>
-                    <a href="#"><i class="bi bi-person"></i></a>
+                    <a href="#"><i class="bi bi-person"> </i></a>
                 </h6>
                 <h6>
-                    <a href="{{Route('cart')}}"><i class="bi bi-cart"></i></a>
+                    <a href="{{Route('cart')}}"><i class="bi bi-cart"></i> @if($cartCount > 0)
+                        <span class="badge bg-secondary">{{ $cartCount }}</span>
+                    @endif</a>
                 </h6>
                 <h6>
                     <a href="{{Route('logout')}}"><i class="bi bi-box-arrow-right"></i></a>

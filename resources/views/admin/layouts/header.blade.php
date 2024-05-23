@@ -9,7 +9,7 @@
     
     <title>Get The Pet - Admin :: {{ $title }}</title>
     <!-- Favicon -->
-    <link href="{{asset('admin/img/favicon.ico')}}" rel="icon">
+    {{-- <link href="{{asset('admin/img/favicon.ico')}}" rel="icon"> --}}
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

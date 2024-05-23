@@ -26,36 +26,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
-                            {{-- <tr>
-                                <th scope="row">{{$products->users_customers_id}}</th>
+                            @foreach ($products as $product)        
+                            <tr class="align-middle">
+                                <th scope="row">{{$product->pet_shop_products_id}}</th>
                                 <!-- Image -->
-                                <td><img src="{{asset($user->image)}}" alt="profile" class="flex-shrink-0 rounded-circle"></td>
+                                <td><img src="{{asset('storage/'.$product->image)}}" alt="profile" class="flex-shrink-0" style="width: 5vw;height:5vw;"></td>
 
                                 <!-- First Name -->
-                                <td>{{$user->first_name}}</td>
+                                <td>{{$product->name}}</td>
 
                                 <!-- Last Name -->
-                                <td>{{$user->last_name}}</td>
+                                <td>{{$product->short_description}}</td>
 
                                 <!-- Username -->
-                                <td>{{$user->username}}</td>
+                                <td>{{$product->description}}</td>
 
                                 <!-- Email -->
-                                <td>{{$user->email}}</td>
+                                <td>{{$product->category}}</td>
 
                                 <!-- Phone number -->
-                                <td>{{$user->phone_no}}</td>
+                                <td>{{$product->sub_category}}</td>
                             
                                 <!-- Address -->
-                                <td>{{$user->address}}</td>
+                                <td>{{$product->stock}}</td>
 
                                 <!-- Status -->
-                                <td>{{$user->status}}</td>
+                                <td>{{$product->price}}</td>
 
                                 <!-- Actions -->
-                                <td></td>
-                            </tr>  --}}
+                                <td>{{$product->status}}</td>
+
+                                <!-- Actions -->
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!-- Delete -->
+                                        <button type="button" class="btn btn-outline-danger m-2" onclick="DeleteModal('{{$product->pet_shop_products_id}}');"><i class="fa fa-trash"></i></button>
+                                        <!-- Edit -->
+                                        <button type="button" class="btn  btn-outline-primary m-2"onclick="EditModal('{{ json_encode($product) }}')"><i class="fa fa-pen"></i></button>
+                                    </div>
+                                </td>
+                            </tr> 
                             @endforeach
                         </tbody>
                     </table>

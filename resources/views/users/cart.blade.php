@@ -12,91 +12,46 @@
                                     <div class="p-5">
                                         <div class="d-flex justify-content-between align-items-center mb-5">
                                             <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                                            <h6 class="mb-0 text-muted">3 items</h6>
+                                            <h6 class="mb-0 text-muted">{{$cartCount}} items</h6>
                                         </div>
                                         <hr class="my-4">
-
-                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img src="{{ asset('users/template/img/product-1.png') }}"
-                                                    class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-primary">Shirt</h6>
-                                                <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <div class="product__details__button m-0">
-                                                    <div class="quantity m-0">
-                                                        <div class="pro-qty">
-                                                            <input class="text-center" type="text" value="1">
+                                       
+                                        @foreach ($user_products as $cart)
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img src="{{ asset('storage/'. $cart->image) }}"
+                                                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <h6 class="text-primary">{{$cart->category}}</h6>
+                                                    <h6 class="text-black mb-0">{{$cart->name}}</h6>
+                                                    {{$cart->quantity}}
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                    <div class="product__details__button m-0">
+                                                        <div class="quantity m-0">
+                                                            <div class="pro-qty">
+                                                                <input class="text-center" type="text" value="1">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">€ 44.00</h6>
-                                            </div>
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                            </div>
-                                        </div>
-
-                                        <hr class="my-4">
-
-                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img src="{{ asset('users/template/img/product-2.png') }}"
-                                                    class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-primary">Shirt</h6>
-                                                <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <div class="product__details__button m-0">
-                                                    <div class="quantity m-0">
-                                                        <div class="pro-qty">
-                                                            <input class="text-center" type="text" value="1">
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    <h6 class="mb-0 text-uppercase">{{$cart->currency}} {{$cart->price}}</h6>
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <form action="{{ route('cart.delete', ['id' => $cart->pet_shop_products_id]) }}" method="post" class="delete-form">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-danger">
+                                                            <i class="fas fa-trash fa-lg"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">€ 44.00</h6>
-                                            </div>
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                            </div>
-                                        </div>
+                                            
+                                        @endforeach
 
-                                        <hr class="my-4">
-
-                                        <div class="row mb-4 d-flex justify-content-between align-items-center">
-                                            <div class="col-md-2 col-lg-2 col-xl-2">
-                                                <img src="{{ asset('users/template/img/product-3.png') }}"
-                                                    class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-3">
-                                                <h6 class="text-primary">Shirt</h6>
-                                                <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                                            </div>
-                                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                                <div class="product__details__button m-0">
-                                                    <div class="quantity m-0">
-                                                        <div class="pro-qty">
-                                                            <input class="text-center" type="text" value="1">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                <h6 class="mb-0">€ 44.00</h6>
-                                            </div>
-                                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                            </div>
-                                        </div>
 
                                         <hr class="my-4">
                                         <div class="row justify-content-end">

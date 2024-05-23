@@ -19,16 +19,7 @@
                                 </h2>
                             </div>
                             <p>
-                                anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the
-                                Internet tend to repeat predefined chunks as necessary, making this the first true generator
-                                on the Internetanything embarrassing hidden in the middle of text. All the Lorem Ipsum
-                                generators on the Internet tend to repeat predefined chunks as necessary, making this the
-                                first true generator on the Internetanything embarrassing hidden in the middle of text. All
-                                the Lorem Ipsum generators on the Internet tend to repeat
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente reprehenderit nobis
-                                doloribus blanditiis soluta aliquid ab, rem necessitatibus eveniet quis autem pariatur
-                                maxime exercitationem vel, consequatur sed quasi commodi modi nam. Delectus sint nostrum
-                                consequatur deleniti dignissimos fugit, illo fuga cum porro consectetur. Impedit, quas.
+                                Our pet website will be a one-stop destination for everything related to pets. Users can create their own profiles to access all the cool features we offer. You can shop for pets in our marketplace, . Once you've found the perfect pet, just add them to your cart and proceed to checkout! Keep track of your pet's health and behavior with our pet history feature, and stay updated on upcoming events in the pet community. Need advice or want to share stories? Our discussion forum is the perfect place to connect with other pet lovers. Plus, we've partnered with verified veterinarians to ensure that all pets listed for sale are healthy and approved. If you ever need to visit a pet doctor, our website makes it easy to find one in your area. With our pharmacy and pet shop, you can conveniently purchase all the essentials your pets needs. 
                             </p>
                         </div>
                     </div>
@@ -46,10 +37,8 @@
                         What We Do
                         <hr>
                     </h2>
-                    <p>
-                        It is a long established fact that a reader will be distracted by
-                        the readable content of a page when looking at its layout. The point
-                        of using Lorem
+                    <p class="text-left">
+                        Our pet website will be a one-stop destination for everything related to pets. Users can create their own profiles to access all the cool features we offer. You can shop for pets in our marketplace,
                     </p>
                 </div>
                 <div class="row">
@@ -60,12 +49,10 @@
                             </div>
                             <div class="detail-box">
                                 <h6>
-                                    Pet Adoption
+                                    Pet Treatment
                                 </h6>
-                                <p>
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
-                                    The point of using Lorem
+                                <p class="text-left">
+                                    Offers a wide selection of premium pet food to keep your furry friends healthy and happy. From nutritious dry and wet food to special dietary options, we have the right products for every pet. Trust us for high-quality, affordable, and delicious food that your pets will love."
                                 </p>
                             </div>
                         </div>
@@ -77,12 +64,10 @@
                             </div>
                             <div class="detail-box">
                                 <h6>
-                                    Pet Care
+                                    Pet Feeding
                                 </h6>
-                                <p>
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
-                                    The point of using Lorem
+                                <p class="text-left">
+                                    Offers a wide selection of premium pet food to keep your furry friends healthy and happy. From nutritious dry and wet food to special dietary options, we have the right products for every pet. Trust us for high-quality, affordable, and delicious food that your pets will love."
                                 </p>
                             </div>
                         </div>
@@ -94,12 +79,10 @@
                             </div>
                             <div class="detail-box">
                                 <h6>
-                                    Pet Training
+                                    Pet Grooming
                                 </h6>
-                                <p>
-                                    It is a long established fact that a reader will be distracted
-                                    by the readable content of a page when looking at its layout.
-                                    The point of using Lorem
+                                <p class="text-left">
+                                    Provides top-notch pet grooming services to keep your furry friends looking and feeling their best. Our professional groomers offer a range of services, including baths, haircuts, nail trims, and more. We use high-quality products to ensure a safe and comfortable experience for your pets.
                                 </p>
                             </div>
                         </div>
