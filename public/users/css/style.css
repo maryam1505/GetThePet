@@ -20,8 +20,6 @@ body {
   border-color: #90a955 !important;
 }
 
-
-
 .justify-content-evenly {
   justify-content: space-evenly;
 }
@@ -692,7 +690,7 @@ color: #131313;
 }
 
 .contact_section input::placeholder {
-color: #131313;
+color: #13131394;
 }
 
 .contact_section input.message-box {
@@ -885,9 +883,28 @@ HEADER
   border: none;
   outline: transparent;
 }
+
 .header_icons a i {
   font-size: 1.3rem !important;
   font-weight: 700 !important;
+}
+
+.badge {
+  position: absolute;
+  right: -12px;
+  top: -10px;
+  width: 1rem;
+  background: #90a955;
+  font-size: 10px;
+  font-weight: 500;
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.cart-btn:disabled,
+.cart-btn.disabled-btn {
+    cursor: not-allowed;       
+    opacity: 0.65;             
 }
 /*---------------------
 AUTH SECTION
@@ -1124,11 +1141,6 @@ FOOD & ACCESSORIES
   object-fit: contain;
 }
 
-/* .food-options:hover {
-  background-color: #90a9550a;
-  cursor: pointer;
-} */
-
 .food-options {
   padding: 3rem;
 }
@@ -1139,10 +1151,6 @@ FOOD & ACCESSORIES
 
 .w-15 {
   width: 15%;
-}
-
-.valid-msg-list {
-  list-style-type:symbols('🔴');
 }
 
 /*----------------------
@@ -1167,7 +1175,7 @@ PRODUCT DETAILS
 
 .equal-height {
   display: flex;
-  align-items: stretch; /* Ensures columns stretch to the same height */
+  align-items: stretch;
 }
 
 .equal-height > .col-lg-4,
@@ -1393,4 +1401,21 @@ THANK YOU
   border-radius:30px;
   text-transform:capitalize;
   box-shadow: 0 10px 16px 1px rgb(224, 251, 174);
+}
+
+.dlt-bin {
+  border: none;
+  background: transparent;
+}
+
+.last-slide .product-item {
+  filter: blur(5px);
+}
+
+.show-more-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }

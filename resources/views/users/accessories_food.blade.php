@@ -79,32 +79,7 @@
     </section>
     <!-- Acessory Options End -->
 
-    <!-- new Products -->
-    <section class="layout_padding-bottom py-5">
-        <div class="container">
-            <div class="heading_container heading_center pb-5">
-                <h2><hr> Accessories & Food <hr></h2>
-            </div>
-            <div class="owl-carousel product-carousel">
-                @foreach ($products as $product)
-                    <div class="pb-5">
-                        <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                            <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
-                            <h6 class="text-uppercase">{{$product->name}}</h6>
-                            <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
-                            <div class="btn-action d-flex justify-content-center">
-                                <a class="btn btn-primary py-2 px-3 redirect-to-cart text-white cursor-pointer" onclick="RedirectToLogin('cart');"><i class="bi bi-cart"></i></a>
-                                <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
-                            </div>
-                        </div>
-                    </div>  
-                @endforeach
-            </div>
-        </div>
-    </section>
-    <!-- new Products end -->
-
-    <!-- Featured -->
+    <!-- Pet Accessories -->
     <section class="layout_padding-bottom py-5">
         <div class="container">
             <div class="heading_container heading_center pb-5">
@@ -113,13 +88,24 @@
             <div class="row">
                 @foreach ($products as $product)
                     @if($product->category == 'Accessories')
+                            @php
+                                $isLiked = false;
+                            @endphp
+                        @foreach ($liked_products as $liked)
+                            @if ($liked->pet_shop_products_id === $product->pet_shop_products_id)
+                                @php
+                                    $isLiked = true;
+                                    break;
+                                @endphp
+                            @endif
+                        @endforeach
                         <div class="pb-5 col-3">
                             <div class="product-item position-relative bg-light d-flex flex-column text-center">
                                 <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
                                 <h6 class="text-uppercase">{{$product->name}}</h6>
                                 <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
                                 <div class="btn-action d-flex justify-content-center">
-                                    <a class="btn btn-primary py-2 px-3 redirect-to-cart text-white cursor-pointer" onclick="RedirectToLogin('cart');"><i class="bi bi-cart"></i></a>
+                                    <a class="btn btn-primary py-2 px-3 products_fav text-white cursor-pointer" data-product="{{$product->pet_shop_products_id}}"><i class="bi {{ $isLiked ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
                                     <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
                                 </div>
                             </div>
@@ -129,24 +115,35 @@
             </div>
         </div>
     </section>
-    <!-- Featured end -->
+    <!-- Pet Accessories end -->
 
-    <!-- Featured -->
+    <!-- Pet Food -->
     <section class="layout_padding-bottom py-5">
         <div class="container">
             <div class="heading_container heading_center pb-5">
                 <h2><hr> Pet Food <hr></h2>
             </div>
-            <div class="row">
+            <div class="row">    
                 @foreach ($products as $product)
                     @if($product->category == 'Food')
+                            @php
+                                $isLiked = false;
+                            @endphp
+                        @foreach ($liked_products as $liked)
+                            @if ($liked->pet_shop_products_id === $product->pet_shop_products_id)
+                                @php
+                                    $isLiked = true;
+                                    break;
+                                @endphp
+                            @endif
+                        @endforeach
                         <div class="pb-5 col-3">
                             <div class="product-item position-relative bg-light d-flex flex-column text-center">
                                 <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
                                 <h6 class="text-uppercase">{{$product->name}}</h6>
                                 <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
                                 <div class="btn-action d-flex justify-content-center">
-                                    <a class="btn btn-primary py-2 px-3 redirect-to-cart text-white cursor-pointer" onclick="RedirectToLogin('cart');"><i class="bi bi-cart"></i></a>
+                                    <a class="btn btn-primary py-2 px-3 products_fav text-white cursor-pointer" data-product="{{$product->pet_shop_products_id}}"><i class="bi {{ $isLiked ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
                                     <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
                                 </div>
                             </div>
@@ -156,5 +153,43 @@
             </div>
         </div>
     </section>
-    <!-- Featured end -->
+    <!-- Pet Food end -->
+
+     <!-- new Products -->
+     @if(!empty($wanted))
+        <section class="layout_padding-bottom py-5">
+            <div class="container">
+                <div class="heading_container heading_center pb-5">
+                    <h2><hr> Most Wanted <hr></h2>
+                </div>
+                <div class="owl-carousel product-carousel">
+                    @foreach ($wanted as $product)
+                            @php
+                                $isLiked = false;
+                            @endphp
+                        @foreach ($liked_products as $liked)
+                            @if ($liked->pet_shop_products_id === $product->pet_shop_products_id)
+                                @php
+                                    $isLiked = true;
+                                    break;
+                                @endphp
+                            @endif
+                        @endforeach
+                        <div class="pb-5">
+                            <div class="product-item position-relative bg-light d-flex flex-column text-center">
+                                <img class="img-fluid mb-4" src="{{ asset('storage/'. $product->image) }}" alt="product">
+                                <h6 class="text-uppercase">{{$product->name}}</h6>
+                                <h5 class="text-primary mb-0 text-uppercase">{{$product->currency}} {{$product->price}}</h5>
+                                <div class="btn-action d-flex justify-content-center">
+                                    <a class="btn btn-primary py-2 px-3 products_fav text-white cursor-pointer" data-product="{{$product->pet_shop_products_id}}"><i class="bi {{ $isLiked ? 'bi-heart-fill' : 'bi-heart' }}"></i></a>
+                                    <a class="btn btn-primary py-2 px-3" href="{{ Route('product.details', $product->pet_shop_products_id) }}"><i class="bi bi-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>  
+                    @endforeach
+                </div>
+            </div>
+        </section>   
+     @endif
+    <!-- new Products end -->
 @endsection

@@ -81,8 +81,7 @@
                                 <input type="password" placeholder="Create Password" name="password" required>
                             </div>
                             <div>
-                                <input type="password" placeholder="Confirm Password" name="password_confirmation"
-                                    required>
+                                <input type="password" placeholder="Confirm Password" name="password_confirmation" required>
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-5 flex-column">
                                 <button type="submit" class="auth__btn w-75 text-center">Register</button>

@@ -14,6 +14,7 @@ class Users extends Model
         'email', 'password', 'username'
     ];
 
+    protected $primaryKey = "users_customers_id";
     protected $hidden = [
         'password', 'remember_token',
     ];

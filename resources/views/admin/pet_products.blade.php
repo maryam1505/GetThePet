@@ -1,12 +1,45 @@
 @extends('admin.layouts.master')
 @section('admindata')
+    <div class="container-fluid pt-4 px-4">
+        <h6 class="mb-4">Product Categories</h6>
+        <div class="g-4 row rounded h-100">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-evenly p-4">
+                            <i class="fa fa-hamburger fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <h6 class="mb-0">Food</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-evenly p-4">
+                            <i class="fa fa-medkit fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <h6 class="mb-0">Pharmacy</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-evenly p-4">
+                            <i class="fa fa-paw fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <h6 class="mb-0">Accessories</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
      <!-- Users Table -->
      <div class="container-fluid mt-3 px-4">
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h6 class="">Pet Products</h6>
-                    <button type="button" class="btn btn-primary rounded-pill" onclick="AddProducts();">Add Products</button>
+                    <button type="button" class="btn btn-primary rounded" onclick="AddProducts();">Add Products</button>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -54,7 +87,28 @@
                                 <td>{{$product->price}}</td>
 
                                 <!-- Actions -->
-                                <td>{{$product->status}}</td>
+                                <td>
+                                    @php
+                                        switch($product->status) {
+                                            case 'In Stock':
+                                            case 'New':
+                                                $text = 'text-success';
+                                                break;
+                                            case 'Sale':
+                                                $text = 'text-warning';
+                                                break;
+                                            case 'Out of Stock':
+                                                $text = 'text-danger';
+                                                break;
+                                            default:
+                                                $text = '';
+                                                break;
+                                        }
+                                    @endphp
+                                    <div class="{{$text}}">
+                                        {{$product->status}}
+                                    </div>
+                                </td>
 
                                 <!-- Actions -->
                                 <td>

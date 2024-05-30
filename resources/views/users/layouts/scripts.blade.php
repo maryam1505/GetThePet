@@ -1,7 +1,7 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{ asset('users/js/bootstrap.js') }}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
 <!-- lightbox -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js  "></script>
 <!-- custom js -->
@@ -81,6 +81,19 @@
         });
     });
 
+    $(document).ready(function () {
+        $('.dropdown').hover(
+            function () {
+                $(this).addClass('show');
+                $(this).find('.dropdown-menu').addClass('show');
+            },
+            function () {
+                $(this).removeClass('show');
+                $(this).find('.dropdown-menu').removeClass('show');
+            }
+        );
+    });
+
     /*-------------------
 		Quantity change
 	--------------------- */
@@ -118,18 +131,54 @@
     /*-------------------
     	Redirect to Login
     --------------------- */
-    function RedirectToLogin(destination, id) {
-        let isLoggedIn = "{{ Session::has('users_data') }}";
-        if (isLoggedIn) {
-            if (destination == 'cart') {
-                window.location.href = "{{ route('cart') }}";
-                
+    document.addEventListener('DOMContentLoaded', function () {
+        const addToCartForm = document.getElementById('addToCartForm{{ $product->pet_shop_products_id }}');
+        const isLoggedIn = {{ session()->has('users_data') ? 'true' : 'false' }};
+
+        addToCartForm.addEventListener('submit', function (event) {
+            if (!isLoggedIn) {
+                event.preventDefault();
+                toastr.error('You need to login First'); 
+                setTimeout(function() {
+                    window.location.href = '/login';
+                }, 2000);
             }
-        } else {
-            toastr.info("You need to log in first.");
-            setTimeout(function() {
-                window.location.href = "{{ route('login') }}";
-            }, 2000);
-        }
-    }
+        });
+    });
+    /*-----------------------
+    	Favourites Products
+    ------------------------- */
+    $(document).ready(function() {
+        var isLoggedIn = {{ session()->has('users_data') ? 'true' : 'false' }};
+        $('.products_fav').on('click',function(){
+            if(isLoggedIn) {
+                var $this = $(this);
+                var product_id = $(this).data('product');
+                var user_id = "{{session()->get('users_data.user_id',0)}}";
+                var isLiked = $(this).find('i').hasClass('bi-heart-fill');
+                var data = {
+                    pet_shop_products_id: product_id,
+                    users_customers_id: user_id,
+                    status: isLiked ? 'Unliked' : 'Liked'
+                };
+                $.ajax({
+                    url: '{{url("api/add_favourites")}}',
+                    method: 'Post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                }).done(function(response){
+                    if(response.status === 'success'){
+                        if(isLiked) {
+                            $this.find('i').removeClass('bi-heart-fill').addClass('bi-heart');
+                        } else {
+                            $this.find('i').removeClass('bi-heart').addClass('bi-heart-fill');
+                        }
+                    }
+                });
+            } else {
+                toastr.error("Oops you are not logged in Yet!");
+            }
+        });
+    });
+    
 </script>

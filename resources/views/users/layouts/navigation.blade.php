@@ -23,9 +23,6 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->route()->getName() === 'marketplace' ? 'active' : '' }}" href="{{Route('marketplace')}}"> Marketplace </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{Route('about')}}">  </a>
-                    </li> --}}
                     <li class="nav-item dropdown {{ request()->route()->getName() === 'pharmacy' || request()->route()->getName() === 'product.details' || request()->route()->getName() === 'accessory.food' ? 'active' : '' }}">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">PetShop</a>
                         <div class="dropdown-menu m-0">
@@ -47,19 +44,31 @@
 
         </nav>
         @if(session()->has('users_data'))
-            <div class="header_icons text-end w-10 d-flex justify-content-evenly align-items-center">
-                <span class="small">{{Session::get('users_data')['username']}}</span>
+            <div class="header_icons text-end w-15 d-flex justify-content-evenly align-items-center">
+                <span class="small text-capitalize">{{Session::get('users_data')['username']}}</span>
                 <h6>
-                    <a href="#"><i class="bi bi-person"> </i></a>
+                    <a href="{{Route('cart')}}" class="position-relative"><i class="bi bi-cart"></i> 
+                        @if($cartCount > 0)
+                            <span class="badge">{{ $cartCount }}</span>
+                        @endif
+                    </a>
                 </h6>
                 <h6>
-                    <a href="{{Route('cart')}}"><i class="bi bi-cart"></i> @if($cartCount > 0)
-                        <span class="badge bg-secondary">{{ $cartCount }}</span>
-                    @endif</a>
+                    <a href="#" class="position-relative"><i class="bi bi-heart"></i> 
+                        @if($favCount > 0)
+                            <span class="badge">{{ $favCount }}</span>
+                        @endif
+                    </a>
                 </h6>
-                <h6>
-                    <a href="{{Route('logout')}}"><i class="bi bi-box-arrow-right"></i></a>
-                </h6>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-person"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right m-0">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="{{Route('logout')}}"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                    </div>
+                </div>
             </div>
         @else
         <div class="text-end small auth">

@@ -5,7 +5,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-
+/*----------------------- Web Routes --------------------------------*/
 /** Login **/ 
 Route::get('/login',[UsersController::class,'login'])->name('login');
 
@@ -30,9 +30,6 @@ Route::get('/accessories_food',[UsersController::class,'accessories_food'])->nam
 /** Discussion Forum **/ 
 Route::get('/discussion_forum',[UsersController::class,'discussion_forum'])->name('discussion.forum');
 
-/** Pet Shop **/ 
-Route::get('/pet_shop',[UsersController::class,'pet_shop'])->name('pet.shop');
-
 /** Pet History **/ 
 Route::get('/pet_history',[UsersController::class,'pet_history'])->name('pet.history');
 
@@ -50,9 +47,11 @@ Route::post('/add_cart',[UsersController::class,'add_cart'])->name('add.cart');
 Route::get('/checkout',[UsersController::class, 'CheckOut'])->name('check.out');
 
 /** Thank You **/ 
-Route::get('/thankyou',[UsersController::class, 'thankyou'])->name('thankyou');
+Route::post('/thankyou',[UsersController::class, 'thankyou'])->name('thankyou');
 
+/** Delete cart product **/
 Route::delete('/cart/delete/{id}', [UsersController::class, 'delete'])->name('cart.delete');
+/*----------------------- Web Routes --------------------------------*/
 
 
 /*=============================== API Routes ===============================*/
@@ -88,11 +87,18 @@ Route::get('/admin/pet_products',[AdminController::class,'pet_products'])->name(
 Route::post('/admin/add_products',[AdminController::class,'add_products'])->name('add.products');
 
 /** Add Products */
-Route::post('/admin/edit_products',[AdminController::class,'edit_products'])->name('edit.products');
+Route::post('/admin/edit_products',[AdminController::class,'edit_product'])->name('edit.products');
 
 /** Users Details */
 Route::get('/admin/users_details',[AdminController::class,'users_details'])->name('users.details');
 
 /** Users Details */
-Route::post('/admin/delete',[AdminController::class,'delete_product'])->name('product.delete');
+Route::post('/admin/delete_product/{id}',[AdminController::class,'delete_product'])->name('product.delete');
+
+/** User Actions **/
+Route::post('/admin/delete_user/{id}',[AdminController::class,'delete_user'])->name('user.delete');
+
+/** Status Update **/
+Route::post('/admin/status_update/{id}/{status}',[AdminController::class,'status_update'])->name('status.update');
+
 /*----------------------- Admin Routes --------------------------------*/

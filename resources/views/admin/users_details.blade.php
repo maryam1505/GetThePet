@@ -27,31 +27,103 @@
                             <tr class="align-middle">
                                 <th scope="row">{{$user->users_customers_id}}</th>
                                 <!-- Image -->
-                                <td><img src="{{asset("admin/img/user.jpg")}}" alt="profile" class="flex-shrink-0 rounded-circle" style="width:2vw;height:2vw;"></td>
+                                <td>
+                                    @php
+                                        $imageSrc = empty($user->image) ? asset('admin/img/user-placeholder.png') : asset("storage/{$user->image}");
+                                    @endphp
+                                    <img src="{{ $imageSrc }}" alt="profile" class="flex-shrink-0 rounded-circle" style="width:2vw;height:2vw;">
+                                </td>
 
                                 <!-- First Name -->
-                                <td>{{$user->first_name}}</td>
+                                <td>
+                                    @php
+                                        $first_name = empty($user->first_name) ? "N/A" : $user->first_name;
+                                    @endphp
+                                    {{$first_name}}
+                                </td>
 
                                 <!-- Last Name -->
-                                <td>{{$user->last_name}}</td>
+                                <td>
+                                    @php
+                                        $last_name = empty($user->last_name) ? "N/A" : $user->last_name;
+                                    @endphp
+                                    {{$last_name}}
+                                </td>
 
                                 <!-- Username -->
-                                <td>{{$user->username}}</td>
+                                <td>
+                                    @php
+                                        $username = empty($user->username) ? "N/A" : $user->username;
+                                    @endphp
+                                    {{$username}}
+                                </td>
 
                                 <!-- Email -->
-                                <td>{{$user->email}}</td>
+                                <td>
+                                    @php
+                                        $email = empty($user->email) ? "N/A" : $user->email;
+                                    @endphp
+                                    {{$email}}
+                                </td>
 
                                 <!-- Phone number -->
-                                <td>{{$user->phone_no}}</td>
+                                <td>
+                                    @php
+                                        $phone_no = empty($user->phone_no) ? "N/A" : $user->phone_no;
+                                    @endphp
+                                    {{$phone_no}}
+                                </td>
                             
                                 <!-- Address -->
-                                <td>{{$user->address}}</td>
+                                <td>
+                                    @php
+                                        $address = empty($user->address) ? "N/A" : $user->address;
+                                    @endphp
+                                    {{$address}}
+                                </td>
 
                                 <!-- Status -->
-                                <td>{{$user->status}}</td>
-
-                                <!-- Actions -->
-                                <td></td>
+                                <td>
+                                    @php
+                                        switch($user->status) {
+                                            case 'Active':
+                                                $text = 'text-success';
+                                                break;
+                                            case 'Inactive':
+                                                $text = 'text-secondary';
+                                                break;
+                                            case 'Deactivated':
+                                            case 'Deleted':
+                                                $text = 'text-danger';
+                                                break;
+                                            default:
+                                                $text = '';
+                                                break;
+                                        }
+                                    @endphp
+                                    <div class="{{$text}}">
+                                        {{$user->status}}
+                                    </div>
+                                </td>
+                                <!-- Action -->
+                                <td> 
+                                    @php
+                                        $statuses = ['Active', 'Inactive', 'Deactivated', 'Deleted'];
+                                    @endphp
+                                    <div class="d-flex align-items-center">
+                                        <div class="dropdown">
+                                            <a href="#" class="nav-link text-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="dynamic">Status</a>
+                                            <div class="dropdown-menu">
+                                                @foreach ($statuses as $status)
+                                                    @if ($status !== $user->status)
+                                                    <a class="dropdown-item cursor-pointer" onclick="UpdateStatus('{{ route('status.update', ['id' => $user->users_customers_id, 'status' => $status]) }}');">{{ $status }}</a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <a class="cursor-pointer" onclick="DeleteUser('{{Route('user.delete', $user->users_customers_id)}}')"><i class="fa fa-trash text-danger"></i></a>
+                                    </div>
+                                </td>
                             </tr> 
                             @endforeach
                         </tbody>

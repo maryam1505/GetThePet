@@ -34,11 +34,16 @@
                                 </div>
                             </div>
                             <input type="hidden" name="product_id" value="{{ $product->pet_shop_products_id }}">
-                            <button type="submit" class="cart-btn">
-                                <span class="bi bi-cart mr-2"></span> Add to cart
+                            <button type="submit" class="cart-btn"
+                                @if(in_array($product->pet_shop_products_id, $cart_product_ids)) disabled @endif>
+                                <span class="bi bi-cart mr-2"></span>
+                                @if(in_array($product->pet_shop_products_id, $cart_product_ids))
+                                    In Cart
+                                @else
+                                    Add to cart
+                                @endif
                             </button>
-                        </form>
-                        
+                        </form>   
                     </div>
                     <div class="product__details__widget">
                         <ul class="p-0">

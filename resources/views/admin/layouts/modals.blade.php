@@ -118,10 +118,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p><i class="fa fa-trash text-danger"></i>Are you sure to delete?</p>
-          <form action="{{Route('product.delete')}}" method="POST">
+          <h5 class="text-center my-3"><i class="fa fa-trash text-danger me-4"></i>Are you sure you want to delete?</h5>
+          <form action="" method="POST" id="deleteForm">
             @csrf
-              <input type="hidden" name="delete_id" id="delete_id">
               <div class="text-end">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-danger">Delete</button>
@@ -131,6 +130,29 @@
       </div>
     </div>
   </div>
+
+    <!-- Update Status Modal -->
+    <div class="modal" tabindex="-1" id="UpdateStatus_Modal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Confirmation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <h6 class="text-center my-3">Are you sure you want to Update current status?</h6>
+            <form action="" method="POST" id="statusUpdate">
+                @csrf
+                <div class="text-end">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
 <!-- Edit Modal -->
   <div class="modal fade" id="EditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -141,7 +163,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="bg-light rounded h-100 p-4">
+                {{-- <div class="bg-light rounded h-100 p-4">
                     <form action="{{ Route('edit.products') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex justify-content-center align-items-center flex-column mb-3">
@@ -231,11 +253,7 @@
                             <button type="submit" class="btn btn-primary">Add Product</button>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add Product</button>
+                </div> --}}
             </div>
         </div>
     </div>
