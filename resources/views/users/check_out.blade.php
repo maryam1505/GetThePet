@@ -64,13 +64,14 @@
                                                     <div class="d-flex justify-content-between mb-4"
                                                         style="font-weight: 500;">
                                                         <p class="mb-2">Total</p>
-                                                        <p class="mb-2">PKR {{$total_price}}</p>
+                                                        <p class="mb-2">Rs. {{$total_price}}</p>
                                                     </div>
-
+                                                    <input type="hidden" name="total_amount" value="{{$total_price}}">
+                                                    <input type="hidden" name="total_quantity" value="{{$total_quantity}}">
                                                     <button type="submit" class="btn btn-primary btn-block btn-lg rounded mb-2">
                                                         <div class="d-flex justify-content-between">
                                                             <span>Make Purchase</span>
-                                                            <span>PKR {{$total_price}}</span>
+                                                            <span>Rs. {{$total_price}}</span>
                                                         </div>
                                                     </button>
                                                     <div class="small text-danger text-right">

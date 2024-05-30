@@ -44,7 +44,7 @@ Route::get('/cart',[UsersController::class,'show_cart'])->name('cart');
 Route::post('/add_cart',[UsersController::class,'add_cart'])->name('add.cart');
 
 /** Check Out **/ 
-Route::get('/checkout',[UsersController::class, 'CheckOut'])->name('check.out');
+Route::post('/checkout',[UsersController::class, 'CheckOut'])->name('check.out');
 
 /** Thank You **/ 
 Route::post('/thankyou',[UsersController::class, 'thankyou'])->name('thankyou');

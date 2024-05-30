@@ -97,25 +97,93 @@
     /*-------------------
 		Quantity change
 	--------------------- */
-    var proQty = $('.pro-qty');
-    proQty.prepend('<span class="dec qtybtn">-</span>');
-    proQty.append('<span class="inc qtybtn">+</span>');
-    proQty.on('click', '.qtybtn', function() {
-        var $button = $(this);
-        var oldValue = $button.parent().find('input').val();
-        if ($button.hasClass('inc')) {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            /* Don't allow decrementing below zero */
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
+    // var proQty = $('.pro-qty');
+    // proQty.prepend('<span class="dec qtybtn">-</span>');
+    // proQty.append('<span class="inc qtybtn">+</span>');
+    // proQty.on('click', '.qtybtn', function() {
+    //     var $button = $(this);
+    //     var oldValue = $button.parent().find('input').val();
+    //     if ($button.hasClass('inc')) {
+    //         var newVal = parseFloat(oldValue) + 1;
+    //     } else {
+    //         /* Don't allow decrementing below zero */
+    //         if (oldValue > 0) {
+    //             var newVal = parseFloat(oldValue) - 1;
+    //         } else {
+    //             newVal = 0;
+    //         }
+    //         9
+    //     }
+    //     $button.parent().find('input').val(newVal);
+    // });
+
+    $(document).ready(function() {
+        var proQty = $('.pro-qty');
+        proQty.prepend('<span class="dec qtybtn">-</span>');
+        proQty.append('<span class="inc qtybtn">+</span>');
+
+        proQty.on('click', '.qtybtn', function() {
+            var $button     = $(this);
+            var $parent     = $button.parent();
+            var $input      = $parent.find('input');
+            var oldValue    = parseInt($input.val());
+            var newVal;
+            if ($button.hasClass('inc')) {
+                newVal = oldValue + 1;
             } else {
-                newVal = 0;
+                newVal = oldValue > 1 ? oldValue - 1 : 1;
             }
-            9
+            $input.val(newVal);
+
+            var $row                = $parent.closest('.row');
+            var pricePerUnit        = parseFloat($row.find('.item-price').data('price'));
+            var $totalPriceElement  = $row.find('.total-price');
+            var totalPrice          = pricePerUnit * newVal;
+            $totalPriceElement.text('Rs. ' + totalPrice.toFixed(2));
+
+            updateTotals();
+        });
+
+        function updateTotals() {
+            var totalQuantity = 0;
+            var totalPrice = 0;
+
+            $('.pro-qty input').each(function() {
+                var quantity = parseInt($(this).val());
+                totalQuantity += quantity;
+
+                var $row            = $(this).closest('.row');
+                var pricePerUnit    = parseFloat($row.find('.item-price').data('price'));
+                totalPrice += pricePerUnit * quantity;
+            });
+
+            $('#total_quantity').text(totalQuantity);
+            $('#total_price').text('Rs. ' + totalPrice);
+            $('#checkout_total_price').text('Rs. ' + totalPrice);
         }
-        $button.parent().find('input').val(newVal);
+
+        updateTotals(); 
+        /*-------------------
+    	    Check Out
+        --------------------- */
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#Check_out').on('click', function() {
+            var totalPrice = $('#total_price').text().replace('Rs. ', '');
+            var totalQuantity = $('#total_quantity').text();
+            $("#T_Quantity").val(totalQuantity);
+            $("#T_Price").val(totalPrice);
+
+            $("#CheckOutForm").submit();
+        });
+
+
     });
+
 
     /*-------------------
     	Redirect to Shop
@@ -132,19 +200,20 @@
     	Redirect to Login
     --------------------- */
     document.addEventListener('DOMContentLoaded', function () {
-        const addToCartForm = document.getElementById('addToCartForm{{ $product->pet_shop_products_id }}');
+        const addToCartForm = document.getElementById("addToCartForm"); 
         const isLoggedIn = {{ session()->has('users_data') ? 'true' : 'false' }};
 
-        addToCartForm.addEventListener('submit', function (event) {
-            if (!isLoggedIn) {
+        if (!isLoggedIn) {
+            addToCartForm.addEventListener('submit', function (event) {
                 event.preventDefault();
                 toastr.error('You need to login First'); 
                 setTimeout(function() {
                     window.location.href = '/login';
                 }, 2000);
-            }
-        });
+            });
+        }
     });
+
     /*-----------------------
     	Favourites Products
     ------------------------- */

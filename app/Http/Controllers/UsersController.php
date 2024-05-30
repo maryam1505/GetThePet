@@ -6,6 +6,9 @@ use App\Models\PetProducts;
 use App\Models\Users;
 use App\Models\UsersCart;
 use App\Models\UsersFavourites;
+use App\Models\UsersOrders;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -26,7 +29,7 @@ class UsersController extends Controller
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
@@ -44,7 +47,7 @@ class UsersController extends Controller
         $favCount   = 0;
         $user_id  = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount  = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
@@ -68,7 +71,7 @@ class UsersController extends Controller
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
@@ -79,7 +82,7 @@ class UsersController extends Controller
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
@@ -116,7 +119,7 @@ class UsersController extends Controller
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
@@ -127,7 +130,7 @@ class UsersController extends Controller
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
@@ -135,9 +138,9 @@ class UsersController extends Controller
         return view('users.pet_history', ['title' => 'Pet History', 'cartCount' => $cartCount, 'favCount' => $favCount]);
     }
     public function product_details($id) {
-        $cartCount = 0;
-        $favCount   = 0;
-        $cart_product_ids = [];
+        $cartCount          = 0;
+        $favCount           = 0;
+        $cart_product_ids   = [];
 
         if(session()->has('users_data')) {
             $user_id            = session('users_data')['user_id'];
@@ -159,36 +162,31 @@ class UsersController extends Controller
         ]);
     }
     public function show_cart() {
-        $cartCount = 0;
+        $cartCount  = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
-            $user_id = session('users_data')['user_id'];
-            $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
+        if(session()->has('users_data')) {
+            $user_id    = session('users_data')['user_id'];
+            $cartCount  = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
-        }
-
-        if (Session::has('users_data')) {
-            $cart_products = UsersCart::where('users_customers_id', $user_id)->get(['pet_shop_products_id', 'quantity']);
-            $product_ids = $cart_products->pluck('pet_shop_products_id')->toArray();
-            $user_products = PetProducts::whereIn('pet_shop_products_id', $product_ids)->get();
+        
+            $cart_products      = UsersCart::where('users_customers_id', $user_id)->get(['pet_shop_products_id', 'quantity']);
+            $product_ids        = $cart_products->pluck('pet_shop_products_id')->toArray();
+            $user_products      = PetProducts::whereIn('pet_shop_products_id', $product_ids)->get();
             $product_quantities = [];
+
             foreach ($cart_products as $cart_product) {
                 $product_quantities[$cart_product->pet_shop_products_id] = $cart_product->quantity;
             }
-            $total_quantity = $cart_products->sum('quantity');
             foreach($user_products as $product) {
                 $product->quantity = $product_quantities[$product->pet_shop_products_id] ?? 0;
-                $product->subtotal = $product->quantity * $product->price;
             }
-            $total_price = $user_products->sum('subtotal');
             
             return view('users.cart', [
                 'title'             => 'Shopping Cart', 
                 'user_products'     => $user_products, 
                 'cartCount'         => $cartCount,
-                'total_quantity'    => $total_quantity,
-                'total_price'       => $total_price
+                'favCount'          => $favCount
             ]);
         } else {
             return Redirect::route('home')->with(['title' => 'Home', 'cartCount' => $cartCount, 'favCount' => $favCount]);
@@ -208,27 +206,32 @@ class UsersController extends Controller
             $cart_product = UsersCart::where('users_customers_id',$user_id)->where('pet_shop_products_id', $id)->first();
 
             if($cart_product) {
-                return redirect()->route('cart')->with(['title' => 'Shopping Cart','message' =>'Item already in the cart']);
+                return redirect()->route('cart')->with(['title' => 'Shopping Cart','error' =>'Item already in the cart']);
             } else {
-                $addtocart = new UsersCart();
-                $addtocart->pet_shop_products_id = $id;
-                $addtocart->quantity = $quantity;
-                $addtocart->users_customers_id = $user_id;
+                $price = PetProducts::where('pet_shop_products_id', $id)->pluck('price');
+                $addtocart                          = new UsersCart();
+                $addtocart->pet_shop_products_id    = $id;
+                $addtocart->quantity                = $quantity;
+                $addtocart->users_customers_id      = $user_id;
+                $addtocart->subtotal                = $quantity * $price;
     
-                if ($addtocart->save()) {
+                if($addtocart->save()) {
                     $cart_products  = UsersCart::where('users_customers_id', $user_id)->get(['pet_shop_products_id', 'quantity']);
                     $product_ids    = $cart_products->pluck('pet_shop_products_id')->toArray();
-                    $user_products  = PetProducts::whereIn('pet_shop_products_id', $product_ids)->get();
+                    $user_products  = PetProducts::where('pet_shop_products_id', $product_ids)->get();
 
                     $product_quantities = [];
+                    $product_subtotal = [];
                     foreach($cart_products as $cart_product) {
-                        $product_quantities[$cart_product->pet_shop_products_id] = $cart_product->quantity;
+                        $product_quantities[$cart_product->pet_shop_products_id]    = $cart_product->quantity;
+                        $product_subtotal[$cart_product->pet_shop_products_id]      = $cart_product->subtotal;
                     }
     
                     foreach($user_products as $product) {
                         $product->quantity = $product_quantities[$product->pet_shop_products_id] ?? 0;
+                        $product->subtotal = $product_subtotal[$product->pet_shop_products_id] ?? 0;
                     }
-                    return redirect()->route('cart')->with(['title' => 'Shopping Cart', 'message'=>'Product added to the Cart Successfully']);
+                    return redirect()->route('cart')->with(['title' => 'Shopping Cart', 'success'=>'Product added to the Cart Successfully']);
                 } else {
                     return redirect()->back()->with('error', 'Failed to add item to cart.');
                 }
@@ -238,36 +241,25 @@ class UsersController extends Controller
             return redirect()->route('home')->with(['title' => 'Home', 'cartCount' => $cartCount, 'favCount' => $favCount]);
         }
     }
-    public function CheckOut() {
+    public function CheckOut(Request $request) {
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id        = session('users_data')['user_id'];
             $cartCount      = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount       = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();
+
             $user_details   = Users::where('users_customers_id', $user_id)->first();
-            $cart_products  = UsersCart::where('users_customers_id', $user_id)->get(['pet_shop_products_id', 'quantity']);
-            $total_quantity = $cart_products->sum('quantity');
-            $product_ids    = $cart_products->pluck('pet_shop_products_id')->toArray();
-            $user_products  = PetProducts::whereIn('pet_shop_products_id', $product_ids)->get();
-            $product_quantities = [];
-            foreach ($cart_products as $cart_product) {
-                $product_quantities[$cart_product->pet_shop_products_id] = $cart_product->quantity;
-            }
-            $total_quantity = $cart_products->sum('quantity');
-            foreach($user_products as $product) {
-                $product->quantity = $product_quantities[$product->pet_shop_products_id] ?? 0;
-                $product->subtotal = $product->quantity * $product->price;
-            }
-            $total_price = $user_products->sum('subtotal');
+            $total_price    = $request->input('total_price');
+            $total_quantity = $request->input('total_quantity');
             return view('users.check_out', [
-                'title'     => 'Check Out', 
-                'cartCount' => $cartCount, 
-                'favCount' => $favCount,
-                'user_data' => $user_details,
+                'title'             => 'Check Out', 
+                'cartCount'         => $cartCount, 
+                'favCount'          => $favCount,
+                'user_data'         => $user_details,
                 'total_quantity'    => $total_quantity,
-                'total_price'       => $total_price
+                'total_price'       => $total_price,
             ]);
         } else {
             return Redirect::route('home')->with('title', 'Home');
@@ -287,8 +279,10 @@ class UsersController extends Controller
             $email          = $request->input('email');
             $phone_no       = $request->input('phone_no');
             $address        = $request->input('address');
+            $total_amount        = $request->input('total_amount');
+            $total_quantity        = $request->input('total_quantity');
 
-            Users::where('users_customers_id', $user_id)->update([
+            $update = Users::where('users_customers_id', $user_id)->update([
                 'first_name'    => $first_name,
                 'last_name'     => $last_name,
                 'username'      => $username,
@@ -296,8 +290,26 @@ class UsersController extends Controller
                 'phone_no'      => $phone_no,
                 'address'       => $address
             ]);
+            if($update) {
+                $order_number = "ORD-" . Carbon::now()->format('ymd') . Str::random(4);
+                UsersOrders::create([
+                    'users_customers_id' => $user_id,
+                    'order_number' => $order_number,
+                    'total_items' => $cartCount,
+                    'total_quantities' => $total_quantity,
+                    'total_amount' => $total_amount,
+                    'created_at' => now(),
+                ]);
+            }
             $user_details   = Users::where('users_customers_id', $user_id)->first();
-            return view('users.thankyou', ['title' => 'Thank You', 'cartCount' => $cartCount, 'user_data' => $user_details, 'favCount' => $favCount]);
+            $user_order_details   = UsersOrders::where('users_customers_id', $user_id)->first();
+            return view('users.thankyou', [
+                'title' => 'Thank You', 
+                'cartCount' => $cartCount, 
+                'user_data' => $user_details, 
+                'favCount' => $favCount,
+                'order_details'=> $user_order_details,
+            ]);
         } else {
             return view('home', ['title'=> 'Home']);
         }
@@ -306,7 +318,7 @@ class UsersController extends Controller
         $cartCount = 0;
         $favCount   = 0;
 
-        if (session()->has('users_data')) {
+        if(session()->has('users_data')) {
             $user_id = session('users_data')['user_id'];
             $cartCount = UsersCart::where('users_customers_id', $user_id)->count();
             $favCount   = UsersFavourites::where('users_customers_id', $user_id)->where('status','Liked')->count();

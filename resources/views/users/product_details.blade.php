@@ -25,7 +25,7 @@
                     <div class="product__details__price text-uppercase">{{$product->currency}} {{$product->price}}</div>
                     <p>{{$product->description}}</p>
                     <div class="product__details__button">
-                        <form action="{{ route('add.cart') }}" method="POST" id="addToCartForm{{ $product->pet_shop_products_id }}">
+                        <form action="{{ route('add.cart') }}" method="POST" id="addToCartForm">
                             @csrf
                             <div class="quantity">
                                 <span>Quantity:</span>
@@ -50,7 +50,24 @@
                             <li>
                                 <span>Availability:</span>
                                 <div class="stock__checkbox">
-                                    <label class="small" for="stockin">
+                                    @php
+                                        switch($product->status) {
+                                            case 'In Stock':
+                                            case 'New':
+                                                $text = 'text-success';
+                                                break;
+                                            case 'Out of Stock':
+                                                $text = 'text-danger';
+                                                break;
+                                            case 'Sale':
+                                                $text = 'text-warning';
+                                                break;
+                                            default:
+                                                $text = '';
+                                                break;
+                                        }
+                                    @endphp
+                                    <label class="small {{$text}}" for="stockin">
                                         {{$product->status}}
                                     </label>
                                 </div>
