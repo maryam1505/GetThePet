@@ -17,6 +17,10 @@
     color: #90a955 !important;
 }
 
+.tiny {
+    font-size: 0.8rem;
+}
+
 .btn-primary,
 .btn-primary:hover,
 .btn-primary:focus,

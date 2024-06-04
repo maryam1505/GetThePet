@@ -66,6 +66,9 @@
     <div class="container-fluid pt-4 px-4">
         <h6 class="mb-4">Recent Users</h6>
         <div class="g-4 row rounded h-100">
+            @if ($recent_users->isEmpty())
+                <p class="text-muted text-center">No recent users</p>
+            @endif
             @foreach ($recent_users as $item)
                 <div class="col">
                     <div class="bg-light rounded d-flex align-items-center justify-content-evenly p-4">
@@ -105,6 +108,9 @@
     <div class="container-fluid pt-4 px-4">
         <h6 class="mb-4">Recent Products</h6>
         <div class="g-4 row rounded h-100">
+            @if ($recent_products->isEmpty())
+                <p class="text-muted text-center">No recent products</p>
+            @endif
             @foreach ($recent_products as $item)
                 <div class="col-sm-6 col-xl-3">
                     <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">

@@ -14,10 +14,22 @@
                         <h6 class="m-0">Your Order ID: </h6> <p>{{$order_details->order_number}}</p>
                     </div>
                     <div class="d-flex col-8 justify-content-between">
+                        <h6 class="m-0">Total Items: </h6> <p>{{$order_details->total_items}}</p>
+                    </div>
+                    <div class="d-flex col-8 justify-content-between">
+                        <h6 class="m-0">Total Quantities: </h6> <p>{{$order_details->total_quantities}}</p>
+                    </div>
+                    <div class="d-flex col-8 justify-content-between">
                         <h6 class="m-0">Your Total Bill: </h6> <p>Rs. {{$order_details->total_amount}}</p>
                     </div>
-                    <div class="d-flex col-8 justify-content-between mb-3">
+                    <div class="d-flex col-8 justify-content-between">
                         <h6 class="m-0">Your Billing Address: </h6> <p>{{$user_data->address}}</p>
+                    </div>
+                    <div class="d-flex col-8 justify-content-between">
+                        <h6 class="m-0">Your Payment Method: </h6> <p>{{$order_details->payment_method}}</p>
+                    </div>
+                    <div class="d-flex col-8 justify-content-between mb-3">
+                        <h6 class="m-0">Your Payment Status: </h6> <p>{{$order_details->payment_status}}</p>
                     </div>
                     <p class="small">Hope you find it helpfull and exciting. Wish you luck with your sweet pet! 😊 </p>
                     <p class="small">you will receive your order soon! </p>

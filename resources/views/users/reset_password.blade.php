@@ -13,7 +13,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Get The Pet - Register</title>
+    <title>Get The Pet - Login</title>
 
     <!-- font awesome style -->
     <link href="{{ asset('users/css/font-awesome.min.css') }}" rel="stylesheet" />
@@ -44,49 +44,21 @@
             </div>
             <div class="auth__container">
                 <div class="heading_container auth__head py-5">
-                    <h2>
-                        <hr> Register
-                        <hr>
-                    </h2>
+                    <h2> <hr> Reset Password <hr> </h2>
                 </div>
                 <div class="container">
                     <div class="contact_section px-3 py-3">
-                        <form action="{{ Route('user.register') }}" method="POST">
+                        <form action="{{ Route('update.password') }}" method="POST">
                             @csrf
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    @if ($errors->count() > 1)
-                                        <ul class="valid-msg-list">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        <p>{{ $errors->first() }}</p>
-                                    @endif
-                                </div>
-                            @endif
-                            @if (session('message'))
-                                <div class="alert alert-warning">
-                                    {{ session('message') }}
-                                </div>
-                            @endif
+                            <input type="hidden" name="email" value={{$email}}>
                             <div>
-                                <input type="text" placeholder="Username" name="username" required>
+                                <input type="password" placeholder="Reset Password" name="password" required>
                             </div>
                             <div>
-                                <input type="email" placeholder="Email" name="email" required>
-                            </div>
-                            <div>
-                                <input type="password" placeholder="Create Password" name="password" required>
-                            </div>
-                            <div>
-                                <input type="password" placeholder="Confirm Password" name="password_confirmation" required>
+                                <input type="password" placeholder="********" name="password_confirmation" required>
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-5 flex-column">
-                                <button type="submit" class="auth__btn w-75 text-center">Register</button>
-                                <span class="small py-1">Already have an account?<a
-                                        href="{{ Route('login') }}">Login</a></span>
+                                <button type="submit" class="auth__btn w-75 text-center">Reset Password</button>
                             </div>
                         </form>
                     </div>
@@ -99,5 +71,5 @@
         </div>
     </section>
 </body>
-@include('users.layouts.scripts')
+    @include('users.layouts.scripts')
 </html>

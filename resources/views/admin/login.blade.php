@@ -55,7 +55,7 @@
                                 <a href="">Forgot Password</a>
                             </div> --}}
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Login</button>
-                            <p class="text-center mb-0 small">Don't have an Account? <a class="text-primary" href="{{Route('admin.register')}}">Sign Up</a></p>
+                            {{-- <p class="text-center mb-0 small">Don't have an Account? <a class="text-primary" href="{{Route('admin.register')}}">Sign Up</a></p> --}}
                         </form>
                     </div>
                 </div>

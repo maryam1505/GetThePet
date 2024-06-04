@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\PetProducts;
+use App\Models\QuestionLikes;
+use App\Models\QuestionReplies;
+use App\Models\ReplyLikes;
+use App\Models\User;
 use App\Models\Users;
 use App\Models\UsersFavourites;
+use App\Models\UsersQuestions;
 use App\Rules\PasswordValidation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
@@ -18,7 +23,7 @@ class ApiController extends Controller
         $request->validate(
             [
                 'email'     => 'required|email|unique:users,email',
-                'password'  => ['required', 'min:8', 'max:12', new PasswordValidation()],
+                'password'  => ['required', 'min:8', 'max:12', 'confirmed', new PasswordValidation()],
                 'username'  => 'required|string|max:255',
             ],
             [
@@ -34,7 +39,7 @@ class ApiController extends Controller
                 'username.max'      => 'The username cannot be more than 255 characters long.',
             ],
         );
-        Users::create([
+        User::create([
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'username'  => $request->username,
@@ -48,7 +53,7 @@ class ApiController extends Controller
             'password'  => 'required|min:8|max:12',
         ]);
 
-        $user = Users::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
         if (!$user) {
             return redirect()->route('login')->with('error', 'User not Found');
         }
@@ -136,114 +141,324 @@ class ApiController extends Controller
 
     /*======================= APIs =============================*/
     public function Add_Favourites(Request $request) {
-        // if(Session::has('users_data')) {
-            $user_id = $request->input('users_customers_id');
-            $product_id = $request->input('pet_shop_products_id');
-            $status = $request->input('status');
+        $user_id    = $request->input('users_customers_id');
+        $product_id = $request->input('pet_shop_products_id');
+        $status     = $request->input('status');
 
-            $user = Users::find($user_id);
-            if(!$user) {
-                return response()->json([
-                    'status'    => 'error',
-                    'code'      => 404,
-                    'message'   => 'User Not found',
-                ], 404);
+        $user       = User::find($user_id);
+        if(!$user) {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 404,
+                'message'   => 'User Not found',
+            ], 404);
+        }
+    
+        $product    = PetProducts::find($product_id);
+        if(!$product) {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 404,
+                'message'   => 'Product Not found',
+            ], 404);
+        }
+
+        if($status == 'Liked') {
+            $existing_favorite = UsersFavourites::where('users_customers_id', $user_id)->where('pet_shop_products_id', $product_id)->where('status','Liked')->first();
+    
+            if($existing_favorite) {
+                $fav_product = $existing_favorite->pet_shop_products_id;
+                $product = PetProducts::find( $fav_product );
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'code' => 409,
+                        'message' => 'Product is already in favorites',
+                    ],
+                    409,
+                );
             }
         
-            $product = PetProducts::find($product_id);
-            if(!$product) {
+            $favorite = new UsersFavourites;
+            $favorite->users_customers_id = $user_id;
+            $favorite->pet_shop_products_id = $product_id;
+            $favorite->status = $status;
+            $favorite->created_at = now();
+            
+            if($favorite->save()) {
+                $fav_product = $favorite->pet_shop_products_id;
+                $product = PetProducts::find( $fav_product );
+                return response()->json([
+                    'status'    => 'success',
+                    'code'      => 200,
+                    'message'   => 'Product added to favorites successfully',
+                    'data'      => $product,
+                ], 200);
+            } else {
                 return response()->json([
                     'status'    => 'error',
-                    'code'      => 404,
-                    'message'   => 'Product Not found',
-                ], 404);
+                    'code'      => 500,
+                    'message'   => 'Failed to add product to favorites',
+                ], 500);
             }
+        } else if($status == 'Unliked') {
+            $existing_favorite = UsersFavourites::where('users_customers_id', $user_id)->where('pet_shop_products_id', $product_id)->where('status','Unliked')->first();
+    
+            if($existing_favorite) {
+                $fav_product = $existing_favorite->pet_shop_products_id;
+                $product = PetProducts::find( $fav_product );
+                return response()->json(
+                    [
+                        'status'    => 'error',
+                        'code'      => 409,
+                        'message'   => 'Product is not in favourites',
+                        'data'      => $product,
+                    ],
+                    409,
+                );
+            }
+            $favorite = UsersFavourites::where('users_customers_id',$user_id)->where('pet_shop_products_id',$product_id)->update(['status' => $status]);
+            
+            if($favorite) {
+                return response()->json([
+                    'status'    => 'success',
+                    'code'      => 200,
+                    'message'   => 'Product removed from favorites successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status'    => 'error',
+                    'code'      => 500,
+                    'message'   => 'Failed to remove product from favorites',
+                ], 500);
+            }
+        } else {
+            return response()->json(
+                [
+                    'status'    => 'error',
+                    'code'      => 400,
+                    'message'   => 'Status not found',
+                ],
+                400,
+            );
+        }
+    }
 
-            if($status == 'Liked') {
-                $existing_favorite = UsersFavourites::where('users_customers_id', $user_id)->where('pet_shop_products_id', $product_id)->where('status','Liked')->first();
-        
-                if($existing_favorite) {
-                    $fav_product = $existing_favorite->pet_shop_products_id;
-                    $product = PetProducts::find( $fav_product );
-                    return response()->json(
-                        [
+    public function question_likes(Request $request) {
+        $user_id        = $request->input('users_customers_id');
+        $question_id    = $request->input('users_questions_id');
+        $status         = $request->input('status');
+        $user           = User::find($user_id);
+        $question       = UsersQuestions::where('users_questions_id',$question_id)->first();
+
+        if(!$user) {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 404,
+                'message'   => 'User Not found',
+            ], 404);
+        }
+
+        if(!$question) {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 404,
+                'message'   => 'Question Not found',
+            ], 404);
+        }
+
+        $existing_like = QuestionLikes::where('users_customers_id', $user_id)->where('users_questions_id', $question_id)->first();
+        if($status == 'Liked') {
+            if(!empty($existing_like)) {
+                if($existing_like->status == 'Liked') {
+                    return response()->json([
                             'status' => 'error',
                             'code' => 409,
-                            'message' => 'Product is already in favorites',
-                            'data' => $product,
-                        ],
+                            'message' => 'Question is already Liked',
+                        ], 
                         409,
                     );
-                }
-            
-                $favorite = new UsersFavourites;
-                $favorite->users_customers_id = $user_id;
-                $favorite->pet_shop_products_id = $product_id;
-                $favorite->status = $status;
-                $favorite->created_at = now();
-                
-                if($favorite->save()) {
-                    $fav_product = $favorite->pet_shop_products_id;
-                    $product = PetProducts::find( $fav_product );
-                    return response()->json([
-                        'status'    => 'success',
-                        'code'      => 200,
-                        'message'   => 'Product added to favorites successfully',
-                        'data'      => $product,
-                    ], 200);
                 } else {
-                    return response()->json([
-                        'status'    => 'error',
-                        'code'      => 500,
-                        'message'   => 'Failed to add product to favorites',
-                    ], 500);
-                }
-            } else if($status == 'Unliked') {
-                $existing_favorite = UsersFavourites::where('users_customers_id', $user_id)->where('pet_shop_products_id', $product_id)->where('status','Unliked')->first();
-        
-                if($existing_favorite) {
-                    $fav_product = $existing_favorite->pet_shop_products_id;
-                    $product = PetProducts::find( $fav_product );
-                    return response()->json(
-                        [
+                    $update = QuestionLikes::where('users_questions_id', $question_id)->where('users_customers_id', $user_id)->update(['status'=>$status]);
+                    if($update) {
+                        return response()->json([
+                            'status'    => 'success',
+                            'code'      => 200,
+                            'message'   => 'Status updated',
+                        ], 200);
+                    } else {
+                        return response()->json([
                             'status'    => 'error',
-                            'code'      => 409,
-                            'message'   => 'Product is not in favourites',
-                            'data'      => $product,
-                        ],
-                        409,
-                    );
-                }
-                $favorite = UsersFavourites::where('users_customers_id',$user_id)->where('pet_shop_products_id',$product_id)->update(['status' => $status]);
-                
-                if($favorite) {
-                    return response()->json([
-                        'status'    => 'success',
-                        'code'      => 200,
-                        'message'   => 'Product removed from favorites successfully',
-                    ], 200);
-                } else {
-                    return response()->json([
-                        'status'    => 'error',
-                        'code'      => 500,
-                        'message'   => 'Failed to remove product from favorites',
-                    ], 500);
+                            'code'      => 400,
+                            'message'   => 'Something went wrong!',
+                        ], 400);
+                    }
                 }
             }
-    
 
-        // } else {
-        //     return response()->json(
-        //         [
-        //             'status' => 'error',
-        //             'code' => 409,
-        //             'message' => 'You need to login First',
-        //         ],
-        //         409,
-        //     );
-        // }
+            $done = QuestionLikes::create([
+                'users_customers_id'    => $user_id,
+                'users_questions_id'    => $question_id,
+                'status'                => $status,
+                'created_at'            => now(),
+            ]);
+
+            if($done) {
+                return response()->json([
+                    'status'    => 'success',
+                    'code'      => 200,
+                    'message'   => 'Question Liked Successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status'    => 'error',
+                    'code'      => 500,
+                    'message'   => 'Failed to like',
+                ], 500);
+            }
+        } else if($status == 'Unliked') {
+            if($existing_like) { 
+                $like_status = $existing_like->status;
+                if($like_status == 'Liked') {
+                    $update = QuestionLikes::where('users_questions_id', $question_id)->where('users_customers_id', $user_id)->update(['status'=> $status]);
+                    if($update) {
+                        return response()->json([
+                            'status'    => 'success',
+                            'code'      => 200,
+                            'message'   => 'Status updated',
+                        ], 200);
+                    } else {
+                        return response()->json([
+                            'status'    => 'error',
+                            'code'      => 400,
+                            'message'   => 'Something went wrong!',
+                        ], 400);
+                    }
+                } else if($like_status == 'Unliked') {
+                    return response()->json([
+                        'status'    => 'error',
+                        'code'      => 409,
+                        'message'   => 'Already unliked',
+                    ], 409);
+                }
+            }
+        } else {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 400,
+                'message'   => 'Status not found!',
+            ], 400);
+        }
 
     }
 
-/*======================= APIs =============================*/
+    public function reply_likes(Request $request) {
+        $user_id    = $request->input('users_customers_id');
+        $reply_id   = $request->input('question_replies_id');
+        $status     = $request->input('status');
+        $user       = User::find($user_id);
+        $reply      = QuestionReplies::where('question_replies_id', $reply_id)->first();
+
+        if(!$user) {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 404,
+                'message'   => 'User Not found',
+            ], 404);
+        }
+
+        if(!$reply) {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 400,
+                'message'   => 'Reply Not found',
+            ], 400);
+        }
+
+        $existing_like = ReplyLikes::where('users_customers_id', $user_id)->where('question_replies_id', $reply_id)->first();
+        if($status == 'Liked') {
+            if(!empty($existing_like)) {
+                if($existing_like->status == 'Liked') {
+                    return response()->json([
+                            'status' => 'error',
+                            'code' => 409,
+                            'message' => 'Reply is already Liked',
+                        ], 
+                        409,
+                    );
+                } else {
+                    $update = ReplyLikes::where('question_replies_id', $reply_id)->where('users_customers_id', $user_id)->update(['status'=>'Liked']);
+                    if($update) {
+                        return response()->json([
+                            'status'    => 'success',
+                            'code'      => 200,
+                            'message'   => 'Status updated',
+                        ], 200);
+                    } else {
+                        return response()->json([
+                            'status'    => 'error',
+                            'code'      => 400,
+                            'message'   => 'Something went wrong!',
+                        ], 400);
+                    }
+                }
+            }
+
+            $done = ReplyLikes::create([
+                'question_replies_id'    => $reply_id,
+                'users_customers_id'    => $user_id,
+                'status'                => $status,
+                'created_at'            => now(),
+            ]);
+
+            if($done) {
+                return response()->json([
+                    'status'    => 'success',
+                    'code'      => 200,
+                    'message'   => 'Reply Liked Successfully',
+                ], 200);
+            } else {
+                return response()->json([
+                    'status'    => 'error',
+                    'code'      => 500,
+                    'message'   => 'Failed to like',
+                ], 500);
+            }
+        } else if($status == 'Unliked') {
+            if($existing_like) { 
+                $like_status = $existing_like->status;
+                if($like_status == 'Liked') {
+                    $update = ReplyLikes::where('question_replies_id', $reply_id)->where('users_customers_id', $user_id)->update(['status'=> $status]);
+                    if($update) {
+                        return response()->json([
+                            'status'    => 'success',
+                            'code'      => 200,
+                            'message'   => 'Status updated',
+                        ], 200);
+                    } else {
+                        return response()->json([
+                            'status'    => 'error',
+                            'code'      => 400,
+                            'message'   => 'Something went wrong!',
+                        ], 400);
+                    }
+                } else if($like_status == 'Unliked') {
+                    return response()->json([
+                        'status'    => 'error',
+                        'code'      => 409,
+                        'message'   => 'Already unliked',
+                    ], 409);
+                }
+            }
+        } else {
+            return response()->json([
+                'status'    => 'error',
+                'code'      => 400,
+                'message'   => 'Status not found!',
+            ], 400);
+        }
+
+    }
+
+    /*======================= APIs =============================*/
 }

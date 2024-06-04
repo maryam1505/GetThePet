@@ -2,6 +2,7 @@
 <body>
     @include('users.layouts.navigation') 
     @yield('content')
+    @include('users.layouts.modals')
     @include('users.layouts.footer')
 </body>
     @include('users.layouts.scripts')

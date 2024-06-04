@@ -20,16 +20,16 @@
         </div>
         <div class="navbar-nav w-100">
             <a href="{{Route('dashboard')}}" class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa fa-home me-2"></i>Dashboard</a>
-            <a href="{{Route("users.details")}}" class="nav-item nav-link {{ request()->routeIs('users.details') ? 'active' : '' }}"><i class="fa fa-users me-2"></i></i>Users Details</a>
-            <a href="{{Route("pet.products")}}" class="nav-item nav-link {{ request()->routeIs('pet.products') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Products</a>
-            {{-- <div class="nav-item dropdown">
-                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle {{ request()->routeIs('pet.products') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Products</a>
+            <a href="{{Route("users.details")}}" class="nav-item nav-link {{ request()->routeIs('users.details') ? 'active' : '' }}"><i class="fa fa-users me-2"></i></i>Customers Details</a>
+            <a href="{{Route("pet.products")}}" class="nav-item nav-link {{ request()->routeIs('pet.products') ? 'active' : '' }}"><i class="fa fa-shopping-bag me-2"></i>Products</a>
+            <a href="{{Route("product.order")}}" class="nav-item nav-link {{ request()->routeIs('product.order') ? 'active' : '' }}"><i class="fa fa-box me-2"></i></i>Product Orders</a>
+            <div class="nav-item dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle"><i class="fa fa-cog me-2"></i>System Settings</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="{{Route("pet.products")}}" class="dropdown-item">Pet Shop Products</a>
-                    <a href="signin.html" class="dropdown-item">Product Categories</a>
-                    <a href="signup.html" class="dropdown-item">Wanted Products</a>
+                    <a href="{{Route("pet.products")}}" class="dropdown-item">Administration</a>
+                    <a href="signin.html" class="dropdown-item">System</a>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </nav>
 </div>

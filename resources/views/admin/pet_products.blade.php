@@ -53,6 +53,7 @@
                                 <th scope="col">Category</th>
                                 <th scope="col">Sub Category</th>
                                 <th scope="col">Stock</th>
+                                <th scope="col">Currency</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
@@ -82,6 +83,9 @@
                             
                                 <!-- Address -->
                                 <td>{{$product->stock}}</td>
+
+                                <!-- Currency -->
+                                <td class="text-capitalize">{{$product->currency}}</td>
 
                                 <!-- Status -->
                                 <td>{{$product->price}}</td>

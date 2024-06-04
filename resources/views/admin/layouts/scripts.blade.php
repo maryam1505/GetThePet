@@ -120,7 +120,6 @@
 
     function EditModal(data) {
         let product = JSON.parse(data);
-        console.log(product.image);
         $('.modal-body').empty();
         var Editform = `<div class="bg-light rounded h-100 p-4">
                 <form action="{{ Route('edit.products') }}" method="post" enctype="multipart/form-data">
@@ -213,6 +212,66 @@
                 </form>
             </div>`;
 
+        $('.modal-body').append(Editform);
+        $('#EditModal').modal('show');
+    }
+
+    function OrderEditModal(data) {
+        let order = JSON.parse(data);
+        $('.modal-body').empty();
+        $('.modal-title').empty();
+        $('.modal-title').text('Get The Pet - Order Status');
+
+        var Editform = `<div class="bg-light rounded h-100 p-4">
+                <form action="{{ Route('edit.order') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="order_id" value="${order.users_orders_id}">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput" value="${order.order_number}"
+                                    disabled>
+                                <label for="floatingInput">Order Number</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingPassword" value="${order.payment_method}"
+                                    disabled>
+                                <label for="floatingPassword">Payment Method</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="productCategory" name="payment_status" aria-label="Floating label select example" required>
+                                    <option value="" disabled>Update Status</option>
+                                    <option value="paid" ${order.payment_status === 'paid' ? 'selected' : ''}>Paid</option>
+                                    <option value="pending" ${order.payment_status === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="failed" ${order.payment_status === 'failed' ? 'selected' : ''}>Failed</option>
+                                </select>
+                                <label for="floatingSelect">Order Payment Status</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="productStatus" name="order_status" aria-label="Floating label select example" required>
+                                    <option value="" disabled>Update Status</option>
+                                    <option value="Pending" ${order.order_status === 'pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="Processed" ${order.order_status === 'processed' ? 'selected' : ''}>Processed</option>
+                                    <option value="Completed" ${order.order_status === 'completed' ? 'selected' : ''}>Completed</option>
+                                    <option value="Canceled" ${order.order_status === 'canceled' ? 'selected' : ''}>Canceled</option>
+                                </select>
+                                <label for="floatingSelect">Product Order Status</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Order</button>
+                    </div>
+                </form>
+            </div>`;
         $('.modal-body').append(Editform);
         $('#EditModal').modal('show');
     }

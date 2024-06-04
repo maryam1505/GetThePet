@@ -239,15 +239,119 @@
                     if(response.status === 'success'){
                         if(isLiked) {
                             $this.find('i').removeClass('bi-heart-fill').addClass('bi-heart');
+
                         } else {
                             $this.find('i').removeClass('bi-heart').addClass('bi-heart-fill');
                         }
+                        setTimeout(function() {
+                            location.reload();
+                        },2000);
+                    } else {
+                        toastr.error('Something went wrong, please try again.');
                     }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    toastr.error('Error: ' + textStatus + ' - ' + errorThrown);
                 });
             } else {
                 toastr.error("Oops you are not logged in Yet!");
             }
         });
     });
+
+    /*---------------------------------
+        Discussion Forum - Chat Box 
+    ---------------------------------*/
+    $(document).ready(function() {
+        var isLoggedIn = {{ session()->has('users_data') ? 'true' : 'false' }};
+        $(".chat-box").on("click", function() {
+            var $replyBox = $(this).closest(".row").siblings(".reply-box");
+            $replyBox.toggleClass("d-none");
+        });
+        $(".send-msg").on("click", function() {
+            $(this).closest('form').submit();
+        });
+
+        $(".reply-like").on("click", function() {
+            if(isLoggedIn) {
+                var $this       = $(this);
+                var user_id     = "{{session()->get('users_data.user_id',0)}}";
+                var reply_id    = $(this).data('reply_id');
+                var is_Liked    = $this.find('i').hasClass('bi-heart-fill text-danger');
+                var data = {
+                    question_replies_id: reply_id,
+                    users_customers_id: user_id,
+                    status: is_Liked ? 'Unliked' : 'Liked'
+                };
+                $.ajax({
+                    url: '{{url("api/reply_likes")}}',
+                    method: 'Post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                }).done(function(response){
+                    if(response.status === 'success'){
+                        if(is_Liked) {
+                            $this.find('i').removeClass('bi-heart-fill text-danger').addClass('bi-heart');
+                            var likes = parseInt($this.find('span').text());
+                            $this.find('span').text(likes - 1);
+                        } else {
+                            $this.find('i').removeClass('bi-heart').addClass('bi-heart-fill text-danger');
+                            var likes = parseInt($this.find('span').text());
+                            $this.find('span').text(likes + 1);
+                        }
+                    } else {
+                        toastr.error('Something went wrong, please try again.');
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    toastr.error('Error: ' + textStatus + ' - ' + errorThrown);
+                });
+            } else {
+                toastr.error("Oops you are not logged in Yet!");
+            }
+        });
+
+        $(".question_like").on("click",function() {
+            if(isLoggedIn) {
+                var $this       = $(this);
+                var user_id     = "{{session()->get('users_data.user_id',0)}}";
+                var question_id    = $(this).data('question_id');
+                var is_Liked    = $this.find('i').hasClass('bi-heart-fill text-danger');
+
+                var data = {
+                    users_questions_id: question_id,
+                    users_customers_id: user_id,
+                    status: is_Liked ? 'Unliked' : 'Liked'
+                };
+
+                $.ajax({
+                    url: '{{url("api/question_likes")}}',
+                    method: 'Post',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                }).done(function(response){
+                    if(response.status === 'success'){
+                        if(is_Liked) {
+                            $this.find('i').removeClass('bi-heart-fill text-danger').addClass('bi-heart text-muted');
+                            var likes = parseInt($this.find('span').text());
+                            $this.find('span').text(likes - 1);
+                        } else {
+                            $this.find('i').removeClass('bi-heart text-muted').addClass('bi-heart-fill text-danger');
+                            var likes = parseInt($this.find('span').text());
+                            $this.find('span').text(likes + 1);
+                        }
+                    } else {
+                        toastr.error('Something went wrong, please try again.');
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    toastr.error('Error: ' + textStatus + ' - ' + errorThrown);
+                });
+
+            } else {
+                toastr.error("Oops you are not logged in Yet!");
+            }
+        });
+        
+    });
+
+    
     
 </script>

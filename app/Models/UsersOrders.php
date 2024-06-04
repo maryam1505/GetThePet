@@ -19,4 +19,8 @@ class UsersOrders extends Model
         'total_amount',
         'created_at',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'users_customers_id');
+    }
 }

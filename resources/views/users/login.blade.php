@@ -78,11 +78,13 @@
                             </div>
                             <div>
                                 <input type="password" placeholder="********" name="password" required>
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{route("forgot.password")}}" class="small">Forgot Password?</a>
+                                </div>
                             </div>
                             <div class="d-flex justify-content-center align-items-center mt-5 flex-column">
                                 <button type="submit" class="auth__btn w-75 text-center">Login</button>
-                                <span class="small py-1">Not register Yet?<a
-                                        href="{{ Route('register') }}">Register</a></span>
+                                <span class="small py-1">Not register Yet?<a href="{{ Route('register') }}">Register</a></span>
                             </div>
                         </form>
                     </div>
@@ -95,5 +97,5 @@
         </div>
     </section>
 </body>
-
+@include('users.layouts.scripts')
 </html>

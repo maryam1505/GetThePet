@@ -1419,3 +1419,66 @@ THANK YOU
   transform: translate(-50%, -50%);
   z-index: 1;
 }
+
+/*----------------------
+  Discussion Forum
+-----------------------*/
+.answer-action {
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.action_btn {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  /* box-shadow: 0 20px 30px 0 rgba(76, 76, 241, 0.24); */
+  border-radius: 4px;
+  background: #90a955;
+  display: inline-block;
+  padding: 14px 28px;
+  /* transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.18s ease-in-out; */
+}
+
+.answer-action .btn-ans {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 25px;
+  box-shadow: none;
+  /* border: 1px solid #90a955; */
+  transition: all 0.3s ease-in-out;
+}
+
+.bg-primary,
+.answer-action .btn-ans a:hover {
+  background-color: #90a955 !important;
+}
+
+.custom-css {
+  resize: none !important;
+  height: 12rem !important;
+}
+
+.tiny-text {
+  font-size: 0.6rem;
+}
+
+.input-group input {
+  height: 2.8rem !important;
+  border-right: none;
+}
+
+.input-group input::placeholder {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.input-group .input-group-text {
+  background-color: white;
+  border-left: none;
+  padding-right: 1.5rem;
+  font-size: 1.3rem;
+}

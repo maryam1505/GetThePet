@@ -121,7 +121,7 @@
                                                 @endforeach
                                             </div>
                                         </div>
-                                        <a class="cursor-pointer" onclick="DeleteUser('{{Route('user.delete', $user->users_customers_id)}}')"><i class="fa fa-trash text-danger"></i></a>
+                                        {{-- <a class="cursor-pointer" onclick="DeleteUser('{{Route('user.delete', $user->users_customers_id)}}')"><i class="fa fa-trash text-danger"></i></a> --}}
                                     </div>
                                 </td>
                             </tr> 
